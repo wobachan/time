@@ -7,57 +7,57 @@
 <HTA:APPLICATION ID="htaApp" APPLICATIONNAME="GakkoTimeCardName" SINGLEINSTANCE="yes" WINDOWSTATE="maximize" SCROLL="no" />
 <style>
 html,body{height:100%;margin:0;padding:0;}
-body{font-family:"Meiryo UI","Meiryo","Yu Gothic UI","Hiragino Sans",sans-serif;font-size:18px;color:#1f2a37;background:#eef1f5;overflow:hidden;}
+body{font-family:"Meiryo UI","Meiryo","Yu Gothic UI","Hiragino Sans",sans-serif;font-size:18px;color:#2a1d24;background:#fdf3f7;overflow:hidden;}
 button,input,select,textarea{font-family:inherit;font-size:18px;}
-#hdr{position:absolute;left:0;right:0;top:0;height:64px;background:#1d3557;color:#fff;overflow:hidden;}
+#hdr{position:absolute;left:0;right:0;top:0;height:64px;background:#8c2350;color:#fff;overflow:hidden;}
 #hdr .ttl{overflow:hidden;padding:0 12px 0 18px;line-height:64px;font-size:22px;font-weight:bold;white-space:nowrap;text-overflow:ellipsis;}
-#hdr .ttl .neo{color:#8fd6a6;}
-#hdrSub{font-size:15px;font-weight:normal;color:#c7d3e2;margin-left:8px;}
-#hdrAvg{font-size:15px;font-weight:normal;color:#c7d3e2;margin-left:18px;}
+#hdr .ttl .neo{color:#ffd9e8;}
+#hdrSub{font-size:15px;font-weight:normal;color:#f3c9da;margin-left:8px;}
+#hdrAvg{font-size:15px;font-weight:normal;color:#f3c9da;margin-left:18px;}
 #hdrAvg b{font-size:18px;color:#fff;}
-#hdrAvg.over b{color:#ff9c90;}
-#hdrAvg.over{color:#ffc9c1;}
-#hdr .ttl small{font-size:15px;font-weight:normal;color:#b9c6d6;margin-left:8px;}
+#hdrAvg.over b{color:#ffdf7a;}
+#hdrAvg.over{color:#ffeeb8;}
+#hdr .ttl small{font-size:15px;font-weight:normal;color:#efc0d2;margin-left:8px;}
 #tabs{float:right;padding-right:10px;white-space:nowrap;}
-.tab{display:inline-block;margin:11px 0 0 3px;padding:0 13px;height:42px;line-height:42px;border:0;background:transparent;color:#d3dce7;cursor:pointer;border-radius:6px;}
-.tab:hover{background:#2c4a73;}
-.tab.on{background:#fff;color:#1d3557;font-weight:bold;}
+.tab{display:inline-block;margin:11px 0 0 3px;padding:0 13px;height:42px;line-height:42px;border:0;background:transparent;color:#f6d6e3;cursor:pointer;border-radius:6px;}
+.tab:hover{background:#a8386a;}
+.tab.on{background:#fff;color:#8c2350;font-weight:bold;}
 #main{position:absolute;left:0;right:0;top:64px;bottom:0;overflow-x:auto;overflow-y:scroll;}
 #banner div{padding:7px 22px;background:#fff4d6;border-bottom:1px solid #e8cf87;color:#6b4e00;font-size:16px;}
 .page{display:none;padding:18px 22px 40px;}
 .page.on{display:block;}
 #pg-punch{padding-bottom:6px;}
-h2{font-size:25px;margin:0 0 12px;color:#1d3557;}
-h3{font-size:21px;margin:18px 0 8px;color:#1d3557;}
-.btn{display:inline-block;padding:9px 18px;margin:2px 3px 2px 0;border:1px solid #b8c2cf;background:#fff;color:#1f2a37;border-radius:6px;cursor:pointer;line-height:1.3;}
-.btn:hover{background:#f2f6fb;}
-.btn.pri{background:#1d6fb8;border-color:#1d6fb8;color:#fff;}
-.btn.pri:hover{background:#185f9e;}
+h2{font-size:25px;margin:0 0 12px;color:#8c2350;}
+h3{font-size:21px;margin:18px 0 8px;color:#8c2350;}
+.btn{display:inline-block;padding:9px 18px;margin:2px 3px 2px 0;border:1px solid #dcb6c6;background:#fff;color:#2a1d24;border-radius:6px;cursor:pointer;line-height:1.3;}
+.btn:hover{background:#fdf0f5;}
+.btn.pri{background:#c2185b;border-color:#c2185b;color:#fff;}
+.btn.pri:hover{background:#a4154e;}
 .btn.dng{color:#b42318;border-color:#e3a19a;}
-.btn.on{background:#1d3557;border-color:#1d3557;color:#fff;}
+.btn.on{background:#8c2350;border-color:#8c2350;color:#fff;}
 .btn.big{padding:14px 24px;font-size:20px;}
 .btn.sm{padding:5px 11px;font-size:16px;}
-.inp{padding:8px 10px;border:1px solid #b8c2cf;border-radius:5px;background:#fff;}
+.inp{padding:8px 10px;border:1px solid #dcb6c6;border-radius:5px;background:#fff;}
 .inp.dt{width:150px;}
 .inp.tm{width:88px;text-align:center;}
 .inp.num{width:76px;text-align:right;}
 .toolbar{margin:0 0 12px;}
 .toolbar .sp{display:inline-block;width:18px;}
-.note{color:#5b6776;font-size:16px;line-height:1.6;}
-.card{background:#fff;border:1px solid #d5dbe3;border-radius:8px;padding:14px 18px;margin:0 0 14px;}
+.note{color:#7b6670;font-size:16px;line-height:1.6;}
+.card{background:#fff;border:1px solid #ecd2de;border-radius:8px;padding:14px 18px;margin:0 0 14px;}
 table.grid{border-collapse:collapse;background:#fff;}
-table.grid th,table.grid td{border:1px solid #d5dbe3;padding:7px 11px;white-space:nowrap;}
-table.grid th{background:#e8eef6;font-weight:bold;font-size:16px;}
+table.grid th,table.grid td{border:1px solid #ecd2de;padding:7px 11px;white-space:nowrap;}
+table.grid th{background:#fbe4ee;font-weight:bold;font-size:16px;}
 table.grid td.r{text-align:right;}
 table.grid td.c{text-align:center;}
-table.grid tr.off td{background:#f7f2f2;}
-table.grid tr.tot td{background:#eef3f9;font-weight:bold;}
+table.grid tr.off td{background:#f8eef3;}
+table.grid tr.tot td{background:#fbeaf1;font-weight:bold;}
 table.grid tr.clk{cursor:pointer;}
-table.grid tr.clk:hover td{background:#fff8dc;}
+table.grid tr.clk:hover td{background:#fff2f7;}
 table.grid td.miss{color:#b42318;font-weight:bold;}
 table.grid td.w1{background:#fde7d3 !important;}
 table.grid td.w2{background:#f8c9c4 !important;color:#8a1010;font-weight:bold;}
-.mk{display:inline-block;padding:1px 7px;border-radius:4px;background:#e9e2ff;color:#4b3aa3;font-size:17px;font-weight:bold;}
+.mk{display:inline-block;padding:1px 7px;border-radius:4px;background:#ffe3ef;color:#8c2350;font-size:17px;font-weight:bold;}
 .mk.g{background:#e6f3e9;color:#1f6b36;}
 .mk.w{background:#ffeacd;color:#8a4b00;}
 .mk.r{background:#ffdcd8;color:#a1201a;}
@@ -65,7 +65,7 @@ table.grid td.w2{background:#f8c9c4 !important;color:#8a1010;font-weight:bold;}
 .fx{display:inline-block;padding:1px 7px;border-radius:4px;background:#e8730a;color:#fff;font-size:17px;font-weight:bold;}
 tr.fixed td{background:#fff6ec;}
 .hol{color:#b42318;font-size:15px;}
-.gray{color:#8a94a3;}
+.gray{color:#a4909a;}
 /* 打刻画面 */
 table.play{width:100%;min-width:760px;border-collapse:collapse;}
 table.play td{vertical-align:top;padding:0;}
@@ -75,67 +75,67 @@ table.clkrow{width:100%;border-collapse:collapse;table-layout:fixed;}
 table.clkrow td{padding:0;vertical-align:bottom;}
 td.clkL{width:470px;}
 td.clkR{padding-left:16px !important;}
-#whoBox{height:120px;margin-bottom:10px;border-radius:14px;padding:0 22px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:64px;font-weight:bold;line-height:120px;color:#1d3557;}
+#whoBox{height:120px;margin-bottom:10px;border-radius:14px;padding:0 22px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:64px;font-weight:bold;line-height:120px;color:#8c2350;}
 #whoBox small{font-size:0.5em;margin-left:0.15em;}
-#whoBox.in{background:#e3f6e8;color:#1c7a36;}
-#whoBox.out{background:#e3eefb;color:#1d5aa8;}
+#whoBox.in{background:#ffe8f1;color:#c2185b;}
+#whoBox.out{background:#f2eafa;color:#6a2d8f;}
 #whoBox.err{background:#fdeceb;color:#b42318;}
 #whoBox.dup{background:#fff7df;color:#8a6100;}
-#clkDate{font-size:34px;color:#33475f;margin-top:6px;}
-#clkTime{font-size:100px;font-weight:bold;color:#1d3557;line-height:1.0;margin-bottom:8px;letter-spacing:2px;}
-.pmsg{border-radius:12px;padding:10px 24px;height:172px;box-sizing:border-box;overflow:hidden;margin-bottom:12px;border:2px solid #d5dbe3;background:#fff;}
+#clkDate{font-size:34px;color:#6b4557;margin-top:6px;}
+#clkTime{font-size:100px;font-weight:bold;color:#8c2350;line-height:1.0;margin-bottom:8px;letter-spacing:2px;}
+.pmsg{border-radius:12px;padding:10px 24px;height:172px;box-sizing:border-box;overflow:hidden;margin-bottom:12px;border:2px solid #ecd2de;background:#fff;}
 .pmsg .pm1{font-size:36px;font-weight:bold;}
 .pmsg .pm2{font-size:44px;font-weight:bold;margin-top:2px;}
 .pmsg .pm3{font-size:22px;margin-top:4px;color:#8a1010;}
-.pmR{float:right;text-align:center;font-size:14px;line-height:1.2;color:#5b6776;margin:0 2px 0 14px;padding:2px 10px;border-left:3px solid #d5dbe3;white-space:nowrap;}
-.pmR b{display:block;font-size:26px;color:#1d3557;margin-top:0;}
-.pmR.over{color:#a1201a;border-left-color:#e8a9a2;}
+.pmR{float:right;text-align:center;font-size:14px;line-height:1.2;color:#7b6670;margin:0 2px 0 14px;padding:2px 10px;border-left:3px solid #ecd2de;white-space:nowrap;}
+.pmR b{display:block;font-size:26px;color:#8c2350;margin-top:0;}
+.pmR.over{color:#a1201a;border-left-color:#e8a9bd;}
 .pmR.over b{color:#c0392b;}
 .pmR .pls2{display:block;font-size:13px;margin-top:0;}
-.pmsg.idle .pm1{color:#5b6776;}
-.pmsg.idle .pm2{font-size:24px;color:#8a94a3;font-weight:normal;}
-.pmsg.in{background:#e3f6e8;border-color:#57b26d;}
-.pmsg.in .pm2{color:#1c7a36;}
-.pmsg.out{background:#e3eefb;border-color:#5b8fd6;}
-.pmsg.out .pm2{color:#1d5aa8;}
+.pmsg.idle .pm1{color:#7b6670;}
+.pmsg.idle .pm2{font-size:24px;color:#a4909a;font-weight:normal;}
+.pmsg.in{background:#ffe8f1;border-color:#ef9fc0;}
+.pmsg.in .pm2{color:#c2185b;}
+.pmsg.out{background:#f2eafa;border-color:#b58bd0;}
+.pmsg.out .pm2{color:#6a2d8f;}
 .pmsg.err{background:#fdeceb;border-color:#e07b72;}
 .pmsg.err .pm1{color:#b42318;}
 .pmsg.err .pm2{font-size:22px;font-weight:normal;}
 .pmsg.dup{background:#fff7df;border-color:#e0bb4d;}
 .pmsg.dup .pm2{font-size:26px;font-weight:normal;}
-.cardbox{background:#fff;border:1px solid #d5dbe3;border-radius:10px;padding:18px 20px;}
+.cardbox{background:#fff;border:1px solid #ecd2de;border-radius:10px;padding:18px 20px;}
 table.btns{width:100%;border-collapse:collapse;table-layout:fixed;}
 table.btns td{width:50%;padding:0 10px 0 0;vertical-align:top;}
 table.btns td.b2{padding:0 0 0 10px;}
-.bigm{display:block;width:100%;height:170px;margin:0;padding:0 0 0 12px;box-sizing:border-box;border:5px solid #b8c2cf;background:#fff;border-radius:22px;cursor:pointer;font-size:84px;font-weight:bold;letter-spacing:12px;}
-.bigm.in{color:#cfdad2;border-color:#e6ece8;background:#fbfdfb;}
-.bigm.out{color:#ced6e2;border-color:#e6ebf3;background:#fbfcfe;}
-.bigm.in.on{background:#11692c;border-color:#0a4a1d;color:#fff;box-shadow:0 8px 20px rgba(17,105,44,0.45);}
-.bigm.out.on{background:#0f4b96;border-color:#0a356c;color:#fff;box-shadow:0 8px 20px rgba(15,75,150,0.45);}
-.modetext{display:block;margin-top:10px;font-size:22px;color:#33475f;line-height:1.5;}
+.bigm{display:block;width:100%;height:170px;margin:0;padding:0 0 0 12px;box-sizing:border-box;border:5px solid #dcb6c6;background:#fff;border-radius:22px;cursor:pointer;font-size:84px;font-weight:bold;letter-spacing:12px;}
+.bigm.in{color:#ebd2de;border-color:#f7e5ed;background:#fffbfc;}
+.bigm.out{color:#ddd0e8;border-color:#ece3f3;background:#fdfbff;}
+.bigm.in.on{background:#c2185b;border-color:#93123f;color:#fff;box-shadow:0 8px 20px rgba(194,24,91,0.40);}
+.bigm.out.on{background:#6a2d8f;border-color:#4d1f6b;color:#fff;box-shadow:0 8px 20px rgba(106,45,143,0.40);}
+.modetext{display:block;margin-top:10px;font-size:22px;color:#6b4557;line-height:1.5;}
 .modetext b{font-size:34px;}
-.cardrow{margin-top:12px;color:#5b6776;font-size:18px;}
-#cardIn{width:240px;padding:8px 10px;border:1px solid #b8c2cf;border-radius:5px;ime-mode:disabled;}
-.tdhead{font-weight:bold;color:#1d3557;margin:6px 0 8px;font-size:20px;}
-#todayCount{font-size:14px;font-weight:normal;color:#5b6776;margin-top:2px;white-space:nowrap;}
-#todayList{overflow:auto;background:#fff;border:1px solid #d5dbe3;border-radius:8px;}
+.cardrow{margin-top:12px;color:#7b6670;font-size:18px;}
+#cardIn{width:240px;padding:8px 10px;border:1px solid #dcb6c6;border-radius:5px;ime-mode:disabled;}
+.tdhead{font-weight:bold;color:#8c2350;margin:6px 0 8px;font-size:20px;}
+#todayCount{font-size:14px;font-weight:normal;color:#7b6670;margin-top:2px;white-space:nowrap;}
+#todayList{overflow:auto;background:#fff;border:1px solid #ecd2de;border-radius:8px;}
 #todayList table{width:100%;border-collapse:collapse;table-layout:fixed;}
-#todayList td,#todayList th{padding:6px 5px;border-bottom:1px solid #eef1f5;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-#todayList th{background:#e8eef6;text-align:left;font-size:14px;}
+#todayList td,#todayList th{padding:6px 5px;border-bottom:1px solid #fdf3f7;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#todayList th{background:#fbe4ee;text-align:left;font-size:14px;}
 #todayList th.tm{width:58px;}
-#todayList tr.st-in td{background:#effaf2;}
-#todayList tr.st-out td{color:#6b7684;}
-.dot{display:inline-block;width:12px;height:12px;border-radius:6px;margin-right:6px;background:#ccd3dc;}
-.st-in .dot{background:#2e9e4f;}
-.st-out .dot{background:#5b8fd6;}
+#todayList tr.st-in td{background:#fff0f6;}
+#todayList tr.st-out td{color:#8b7580;}
+.dot{display:inline-block;width:12px;height:12px;border-radius:6px;margin-right:6px;background:#e3c9d5;}
+.st-in .dot{background:#e0447e;}
+.st-out .dot{background:#b58bd0;}
 /* モーダル */
-#ov{display:none;position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(15,25,40,0.45);z-index:100;}
+#ov{display:none;position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(58,10,34,0.45);z-index:100;}
 #mbox{position:absolute;left:50%;top:50px;width:720px;margin-left:-360px;background:#fff;border-radius:10px;padding:20px 24px;box-shadow:0 10px 40px rgba(0,0,0,0.3);max-height:80%;overflow:auto;}
 #mbox h3{margin-top:0;}
 .mbtns{margin-top:16px;text-align:right;}
 .frm td{padding:5px 8px 5px 0;vertical-align:middle;}
-.frm td.lb{color:#33475f;white-space:nowrap;}
-.capbox{margin:14px 0;padding:30px;text-align:center;font-size:30px;font-weight:bold;color:#1d6fb8;border:3px dashed #8fb6e0;border-radius:12px;background:#f3f8fe;}
+.frm td.lb{color:#6b4557;white-space:nowrap;}
+.capbox{margin:14px 0;padding:30px;text-align:center;font-size:30px;font-weight:bold;color:#c2185b;border:3px dashed #eda9c6;border-radius:12px;background:#fff5f9;}
 textarea.inp{width:96%;}
 #printArea{display:none;}
 table.toprow{width:100%;border-collapse:collapse;table-layout:fixed;}
@@ -163,28 +163,29 @@ td.mw{width:46%;padding-right:14px !important;}
 #tiles{overflow:auto;margin-top:4px;}
 table.tiles{width:100%;border-collapse:separate;border-spacing:10px 10px;table-layout:fixed;}
 table.tiles td{padding:0;}
-.tile{display:block;width:100%;height:84px;box-sizing:border-box;padding:6px 10px;border:3px solid #c3ccd8;border-radius:14px;background:#fff;cursor:pointer;text-align:center;font-family:inherit;}
-.tile .tn{font-size:28px;font-weight:bold;color:#1f2a37;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.tile .tt{font-size:18px;color:#6b7684;margin-top:4px;white-space:nowrap;overflow:hidden;}
-.tile.st-in{background:#eafaee;border-color:#57b26d;}
-.tile.st-in .tn{color:#1c7a36;}
-.tile.st-in .tt{color:#1c7a36;}
-.tile.st-out{background:#eef4fd;border-color:#9dbde6;}
-.tile.st-out .tn{color:#33475f;}
-.tile:hover{border-color:#1d6fb8;}
-#lunchOv{display:none;position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(8,18,32,0.82);z-index:300;}
+.tile{display:block;width:100%;height:84px;box-sizing:border-box;padding:6px 10px;border:3px solid #e6cdd8;border-radius:14px;background:#fff;cursor:pointer;text-align:center;font-family:inherit;}
+.tile .tn{font-size:28px;font-weight:bold;color:#2a1d24;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tile .tt{font-size:18px;color:#8b7580;margin-top:4px;white-space:nowrap;overflow:hidden;}
+.tile.st-in{background:#ffeef5;border-color:#ef9fc0;}
+.tile.st-in .tn{color:#c2185b;}
+.tile.st-in .tt{color:#c2185b;}
+.tile.st-out{background:#f5effb;border-color:#c9b0df;}
+.tile.st-out .tn{color:#6b4557;}
+.tile:hover{border-color:#c2185b;}
+#lunchOv{display:none;position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(58,10,34,0.86);z-index:300;}
 #lunchBox{position:absolute;left:0;right:0;top:50%;text-align:center;}
 #lunchQ{font-size:104px;font-weight:bold;color:#fff;line-height:1.15;white-space:nowrap;padding:0 20px;}
-#lunchQ .lsub{font-size:48px;font-weight:normal;color:#bcd4ef;margin-left:14px;}
-#lunchWho{font-size:34px;color:#bcd4ef;margin:8px 0 18px;}
+#lunchQ .qs{font-size:0.5em;font-weight:bold;margin-left:8px;}
+#lunchQ .lsub{font-size:0.38em;font-weight:normal;color:#f5c6da;margin-left:12px;}
+#lunchWho{font-size:34px;color:#f5c6da;margin:8px 0 18px;}
 table.lbtns{width:94%;margin:0 auto;border-collapse:separate;border-spacing:16px 0;table-layout:fixed;}
 #lunchOv button.lb{width:100%;height:180px;font-size:40px;font-weight:bold;color:#fff;border:0;border-radius:18px;cursor:pointer;font-family:inherit;box-shadow:0 6px 18px rgba(0,0,0,0.35);}
 #lunchOv button.lb.ok{background:#2f8f4e;}
 #lunchOv button.lb.some{background:#d98b1e;}
 #lunchOv button.lb.no{background:#c0392b;}
-#lunchCd{margin-top:20px;font-size:44px;font-weight:bold;color:#dbe9f8;white-space:nowrap;padding:0 16px;}
-td.avg,th.avg{background:#f4f8ff;}
-p.avgbox{margin:10px 0 0;padding:10px 16px;background:#eef3fa;border-left:6px solid #1d3557;border-radius:4px;font-size:18px;color:#1d3557;}
+#lunchCd{margin-top:20px;font-size:44px;font-weight:bold;color:#f9d7e5;white-space:nowrap;padding:0 16px;}
+td.avg,th.avg{background:#fdf2f7;}
+p.avgbox{margin:10px 0 0;padding:10px 16px;background:#fdeaf2;border-left:6px solid #8c2350;border-radius:4px;font-size:18px;color:#8c2350;}
 p.avgbox b{font-size:24px;}
 p.avgbox.over{background:#fdecea;border-left-color:#c0392b;color:#a1201a;}
 @media print{
@@ -205,6 +206,7 @@ p.avgbox.over{background:#fdecea;border-left-color:#c0392b;color:#a1201a;}
 .pa table.pcard th,.pa table.pcard td{white-space:nowrap;padding:2px 3px;overflow:hidden;}
 .pa table.pcard th.nt,.pa table.pcard td.nt{white-space:normal;}
 .pa table.pcard td.nt{font-size:8pt;line-height:1.2;}
+.pa table.pcard tr.tot td{font-size:8.5pt;}
 .pa table.pt thead{display:table-header-group;}
 .pa td.r{text-align:right;}
 .pa td.c{text-align:center;}
@@ -216,7 +218,7 @@ p.avgbox.over{background:#fdecea;border-left-color:#c0392b;color:#a1201a;}
 .pa .stamps tr.b td{height:15mm;}
 .pa .pnote{font-size:8pt;margin-top:4px;}
 .pa .teamavg{margin-top:5px;padding:4px 8px;border:1.5px solid #000;font-size:10pt;font-weight:bold;}
-.pa .pls{font-size:7.5pt;font-weight:normal;}
+.pa .pls{font-size:6.5pt;font-weight:normal;line-height:1.1;}
 </style>
 </head>
 <body>
@@ -317,6 +319,7 @@ function parseHM(s) {
 }
 function hmVal(s) { var v = parseHM(s); return typeof v === 'number' ? v : null; }
 function fmtHM(m) { if (m == null || m === '') return ''; m = Math.round(m); return Math.floor(m / 60) + ':' + pad2(m % 60); }
+function fmtDur(m) { if (m == null || m === '') return ''; m = Math.round(m); return Math.floor(m / 60) + 'h' + pad2(m % 60) + 'm'; }
 function hmFile(m) { return m == null ? '' : pad2(Math.floor(m / 60)) + ':' + pad2(m % 60); }
 function clean(s) { return String(s == null ? '' : s).replace(/[\t\r\n]+/g, ' '); }
 function normCode(s) { return toHalf(s).toUpperCase().replace(/[^0-9A-Z]/g, ''); }
@@ -449,7 +452,7 @@ function downloadBytes(name, bytes, mime) {
 
 /* ========== 設定 ========== */
 var DEFAULTS = {
-  schoolName: '', standardMin: 465, breakMin: 45, breakAfterMin: 360, dupSec: 3, allowSid: true,
+  schoolName: '', standardMin: 465, workStart: 495, workEnd: 1005, breakMin: 45, breakAfterMin: 360, dupSec: 3, allowSid: true,
   password: '', extraHolidays: '', extraWorkdays: '', warn1: 45, warn2: 80, idleMin: 3, zoom: 'auto',
   askLunch: true, lunchSec: 4, lunchSomeMin: 20, askHome: true, homeSec: 4, teamWarn: 30
 };
@@ -544,14 +547,14 @@ function loadStaff() {
     if (!L[i] || L[i].charAt(0) === '#') continue;
     var c = L[i].split('\t');
     if (!c[0]) continue;
-    STAFF.push({ sid: c[0], name: c[1] || '', job: c[2] || '', card: c[3] || '', order: c[4] === '' || c[4] == null ? 999 : +c[4], active: c[5] !== '0', std: c[6] || '', stdw: c[7] || '' });
+    STAFF.push({ sid: c[0], name: c[1] || '', job: c[2] || '', card: c[3] || '', order: c[4] === '' || c[4] == null ? 999 : +c[4], active: c[5] !== '0', ws: c[6] || '', we: c[7] || '', wsw: c[8] || '' });
   }
 }
 function saveStaff() {
-  var L = ['#職員番号\t氏名\t職名\tカード\t表示順\t在籍\t所定\t曜日ごとの所定'];
+  var L = ['#職員番号\t氏名\t職名\tカード\t表示順\t在籍\t勤務開始\t勤務終了\t曜日ごとの勤務時間'];
   for (var i = 0; i < STAFF.length; i++) {
     var s = STAFF[i];
-    L.push([clean(s.sid), clean(s.name), clean(s.job), clean(s.card), s.order, s.active ? 1 : 0, clean(s.std || ''), clean(s.stdw || '')].join('\t'));
+    L.push([clean(s.sid), clean(s.name), clean(s.job), clean(s.card), s.order, s.active ? 1 : 0, clean(s.ws || ''), clean(s.we || ''), clean(s.wsw || '')].join('\t'));
   }
   Store.write('staff.txt', L.join('\r\n') + '\r\n');
 }
@@ -562,36 +565,39 @@ function byOrder(a, b) {
 function staffBySid(sid) { for (var i = 0; i < STAFF.length; i++) if (STAFF[i].sid === sid) return STAFF[i]; return null; }
 function staffOrGhost(sid) { return staffBySid(sid) || { sid: sid, name: '（削除された職員 ' + sid + '）', job: '', card: '', order: 99999, active: false }; }
 function activeStaff() { return STAFF.filter(function (s) { return s.active; }).sort(byOrder); }
-function parseStdW(t) {
-  var map = {}, i, m, v;
+function parseWsw(t) {
+  var map = {}, i, m, a, b;
   if (!t) return map;
-  var parts = toHalf(String(t)).replace(/[、,]/g, ' ').split(/\s+/);
+  var parts = toHalf(String(t)).replace(/[、,]/g, ' ').replace(/[〜～]/g, '-').split(/\s+/);
   for (i = 0; i < parts.length; i++) {
-    m = /^([日月火水木金土])(?:曜日?)?[：:]?(\d{1,2}[：:]\d{1,2})$/.exec(parts[i]);
+    m = /^([日月火水木金土])(?:曜日?)?[：:]?(\d{1,2}[：:]\d{1,2})-(\d{1,2}[：:]\d{1,2})$/.exec(parts[i]);
     if (!m) continue;
-    v = parseHM(m[2]);
-    if (typeof v === 'number') map[m[1]] = v;
+    a = parseHM(m[2]); b = parseHM(m[3]);
+    if (typeof a === 'number' && typeof b === 'number') map[m[1]] = { s: a, e: b };
   }
   return map;
 }
-function stdOf(s, d) {
-  if (!s) return S.standardMin;
-  if (s.stdw && d) {
-    var w = WD[parseDS(d).getDay()], mw = parseStdW(s.stdw)[w];
-    if (typeof mw === 'number') return mw;
+function workOf(st, d) {
+  if (st) {
+    if (st.wsw && d) {
+      var w = WD[parseDS(d).getDay()], mw = parseWsw(st.wsw)[w];
+      if (mw) return mw;
+    }
+    var a = parseHM(st.ws || ''), b = parseHM(st.we || '');
+    if (typeof a === 'number' && typeof b === 'number') return { s: a, e: b };
   }
-  var v = parseHM(s.std || '');
-  return typeof v === 'number' ? v : S.standardMin;
+  return { s: S.workStart, e: S.workEnd };
 }
-function stdFor(sid, d) { return stdOf(staffBySid(sid), d); }
-function stdText(s) {
-  var v = parseHM(s.std || '');
-  return (typeof v === 'number' ? fmtHM(v) : '<span class="gray">' + fmtHM(S.standardMin) + '</span>') + (s.stdw ? ' <span class="mk">曜日ごと</span>' : '');
+function workFor(sid, d) { return workOf(staffBySid(sid), d); }
+function workText(st) {
+  var a = parseHM(st.ws || ''), b = parseHM(st.we || ''), own = typeof a === 'number' && typeof b === 'number';
+  return (own ? fmtHM(a) + '〜' + fmtHM(b) : '<span class="gray">' + fmtHM(S.workStart) + '〜' + fmtHM(S.workEnd) + '</span>') + (st.wsw ? ' <span class="mk">曜日ごと</span>' : '');
 }
-function stdLabel(s) {
-  var v = parseHM(s.std || '');
-  return (typeof v === 'number' ? fmtHM(v) : fmtHM(S.standardMin)) + (s.stdw ? '（曜日ごと ' + s.stdw + '）' : '');
+function workLabel(st) {
+  var a = parseHM(st.ws || ''), b = parseHM(st.we || ''), own = typeof a === 'number' && typeof b === 'number';
+  return (own ? fmtHM(a) + '〜' + fmtHM(b) : fmtHM(S.workStart) + '〜' + fmtHM(S.workEnd)) + (st.wsw ? '（曜日ごと ' + st.wsw + '）' : '');
 }
+function stdMinOf(st, d) { var w = workOf(st, d); return Math.max(0, w.e - w.s - S.breakMin); }
 function findByCode(code) {
   var i, s;
   for (i = 0; i < STAFF.length; i++) { s = STAFF[i]; if (s.active && s.card && normCode(s.card) === code) return s; }
@@ -727,7 +733,18 @@ function calc(rec, d, todayStr) {
     r.brk = rec.brk != null ? rec.brk : ((closed < 2 && sum > S.breakAfterMin) ? S.breakMin : 0);
     if (r.brk > sum) r.brk = sum;
     r.zai = sum - r.brk;
-    r.over = r.off ? r.zai : Math.max(0, r.zai - stdFor(rec.sid, d));
+    if (r.off) r.over = r.zai;
+    else {
+      var wk = workFor(rec.sid, d), ot = 0;
+      for (i = 0; i < sp.length; i++) {
+        var a2 = sp[i][0], b2 = sp[i][1];
+        if (a2 == null || b2 == null) continue;
+        if (b2 < a2) b2 += 1440;
+        ot += Math.max(0, Math.min(b2, wk.s) - a2);
+        ot += Math.max(0, b2 - Math.max(a2, wk.e));
+      }
+      r.over = ot;
+    }
   }
   return r;
 }
@@ -791,7 +808,7 @@ function teamClass(min) { return min >= S.teamWarn * 60 ? 'w2' : ''; }
 function plusHome(over, homeLong) { return over + (homeLong || 0) * 60; }
 function plusMark(over, homeLong) {
   if (!homeLong) return '';
-  return '<span class="mk w">＋持ち帰り' + homeLong + '日 ＝ ' + fmtHM(plusHome(over, homeLong)) + '</span>';
+  return '<span class="mk w">＋持ち帰り' + homeLong + '日 ＝ ' + fmtDur(plusHome(over, homeLong)) + '</span>';
 }
 function teamAvg(res) {
   var nn = res.list.length, t = { days: 0, stay: 0, brk: 0, zai: 0, over: 0, home: 0 }, i;
@@ -887,6 +904,25 @@ function setForce(m) {
   updateModeUI();
   focusCard();
 }
+function fitLine(el, max, min, rw) {
+  if (!el) return;
+  el.style.whiteSpace = 'nowrap';
+  el.style.marginRight = (rw || 0) + 'px';
+  var fz = max, guard = 0;
+  el.style.fontSize = fz + 'px';
+  while (fz > min && el.scrollWidth > el.clientWidth && guard++ < 30) { fz -= 2; el.style.fontSize = fz + 'px'; }
+}
+function fitMsg(p) {
+  if (!p) return;
+  var r = p.getElementsByTagName('div'), rw = 0, i, el;
+  for (i = 0; i < r.length; i++) if (r[i].className.indexOf('pmR') >= 0) rw = r[i].offsetWidth + 16;
+  for (i = 0; i < r.length; i++) {
+    el = r[i];
+    if (el.className.indexOf('pm1') >= 0) fitLine(el, 36, 20, rw);
+    else if (el.className.indexOf('pm2') >= 0) fitLine(el, 44, 22, rw);
+    else if (el.className.indexOf('pm3') >= 0) fitLine(el, 22, 13, rw);
+  }
+}
 var LAST_MSG = null, MSG_RIGHT = '';
 function showMsg(cls, a, b, c, snd) {
   LAST_MSG = { cls: cls, a: a, b: b, c: c, right: MSG_RIGHT };
@@ -901,10 +937,12 @@ function showMsg(cls, a, b, c, snd) {
   p.className = 'pmsg ' + cls;
   p.innerHTML = (MSG_RIGHT || '') + '<div class="pm1">' + esc(a) + '</div><div class="pm2">' + esc(b || '') + '</div>' + (c ? '<div class="pm3">' + esc(c) + '</div>' : '');
   MSG_RIGHT = '';
+  fitMsg(p);
   if (MSG_TIMER) clearTimeout(MSG_TIMER);
   MSG_TIMER = setTimeout(function () {
     p.className = 'pmsg idle';
     p.innerHTML = '<div class="pm1">名前を押してください</div>';
+    fitMsg(p);
   }, c ? 12000 : 7000);
 }
 function prevMissing(sid, today) {
@@ -975,7 +1013,7 @@ function punchFor(st, code) {
   var times = rec.spans.length;
   if (cls === 'out') {
     var cc = calc(rec, today, today);
-    if (cc.stay != null) m2 += '　（在校 ' + fmtHM(cc.stay) + (times > 1 ? '・出入り' + times + '回' : '') + '）';
+    if (cc.stay != null) m2 += '　（在校 ' + fmtDur(cc.stay) + (times > 1 ? '・出入り' + times + '回' : '') + '）';
   }
   LAST_TAP[st.sid] = t.getTime();
   UNDO = { ym: ymOf(today), key: today + '|' + st.sid, sid: st.sid, date: today, name: st.name, spans: snapSpans, brk: rec.brk, lunch: rec.lunch || '', home: rec.home || '',
@@ -989,8 +1027,8 @@ function punchFor(st, code) {
   }
   var warn = prevMissing(st.sid, today);
   var mr = monthRange(today), mov = overOfStaff(st.sid, mr.from, mr.to), mhl = homeLongOfStaff(st.sid, mr.from, mr.to), mpl = plusHome(mov, mhl);
-  MSG_RIGHT = '<div class="pmR' + (mpl >= S.warn1 * 60 ? ' over' : '') + '">今月の時間外在校等時間<b>' + fmtHM(mov) + '</b>' +
-    (mhl ? '<span class="pls2">＋持ち帰り' + mhl + '日 ＝ ' + fmtHM(mpl) + '</span>' : '') + '</div>';
+  MSG_RIGHT = '<div class="pmR' + (mpl >= S.warn1 * 60 ? ' over' : '') + '">今月の時間外在校等時間<b>' + fmtDur(mov) + '</b>' +
+    (mhl ? '<span class="pls2">＋持ち帰り' + mhl + '日 ＝ ' + fmtDur(mpl) + '</span>' : '') + '</div>';
   showMsg(cls, m1, m2, warn);
   renderUndo();
   setForce('');
@@ -1001,7 +1039,7 @@ function punchFor(st, code) {
 var ASK = null, ASK_T1 = null, ASK_T2 = null;
 var ASKS = {
   lunch: {
-    q: '昼休憩は とれましたか？', sec: function () { return S.lunchSec || 4; }, def: 'ok', cls: 'out', log: '昼休憩',
+    q: '昼休憩', qs: 'は とれましたか？', sec: function () { return S.lunchSec || 4; }, def: 'ok', cls: 'out', log: '昼休憩',
     opts: [{ v: 'ok', t: '取れた', c: 'ok' }, { v: 'some', t: '少しは取れた', c: 'some' }, { v: 'no', t: '取れなかった', c: 'no' }],
     label: function (v) { return lunchLabel(v); },
     apply: function (r, v) {
@@ -1009,10 +1047,10 @@ var ASKS = {
       if (v === 'no') r.brk = 0;
       else if (v === 'some') r.brk = S.lunchSomeMin;
     },
-    detail: function (r, d) { var c = calc(r, d, ds(now())); return '（休憩 ' + fmtHM(c.brk) + '・在校等 ' + fmtHM(c.zai) + '）'; }
+    detail: function (r, d) { var c = calc(r, d, ds(now())); return '（休憩 ' + fmtDur(c.brk) + '・在校等 ' + fmtDur(c.zai) + '）'; }
   },
   home: {
-    q: '持ち帰り仕事は しましたか？', sub: '（前の日の分）', sec: function () { return S.homeSec || 4; }, def: 'no', cls: 'in', log: '持ち帰り仕事',
+    q: '持ち帰り', qs: '仕事は しましたか？', sub: '（前の日の分）', sec: function () { return S.homeSec || 4; }, def: 'no', cls: 'in', log: '持ち帰り仕事',
     opts: [{ v: 'no', t: 'しなかった', c: 'ok' }, { v: 'yes', t: 'した', c: 'some' }, { v: 'long', t: 'した（1時間以上）', c: 'no' }],
     label: function (v) { return homeLabel(v); },
     apply: function (r, v) { r.home = v; },
@@ -1034,10 +1072,7 @@ function sizeAsk() {
   if (q) {
     var fz = Math.max(48, Math.min(104, Math.floor(cw * 0.075)));
     q.style.fontSize = fz + 'px';
-    var sub = q.getElementsByTagName('span');
-    function subSize() { if (sub.length) sub[0].style.fontSize = Math.floor(fz * 0.46) + 'px'; }
-    subSize();
-    while (fz > 34 && q.scrollWidth > q.clientWidth) { fz -= 4; q.style.fontSize = fz + 'px'; subSize(); }
+    while (fz > 34 && q.scrollWidth > q.clientWidth) { fz -= 4; q.style.fontSize = fz + 'px'; }
   }
   if (cd) {
     var fc = Math.max(20, Math.min(44, Math.floor(cw * 0.032)));
@@ -1055,7 +1090,7 @@ function openAsk(kind, st, d) {
   var ov = $('lunchOv'), a = ASKS[kind];
   if (!ov || !a) return;
   ASK = { kind: kind, sid: st.sid, date: d, name: st.name, left: a.sec() };
-  $('lunchQ').innerHTML = esc(a.q) + (a.sub ? '<span class="lsub">' + esc(a.sub) + '</span>' : '');
+  $('lunchQ').innerHTML = esc(a.q) + (a.qs ? '<span class="qs">' + esc(a.qs) + '</span>' : '') + (a.sub ? '<span class="lsub">' + esc(a.sub) + '</span>' : '');
   $('lunchWho').innerHTML = esc(st.name) + ' さん';
   var h = '<table class="lbtns"><tr>';
   for (var i = 0; i < a.opts.length; i++) h += '<td><button class="lb ' + a.opts[i].c + '" data-act="ask" data-arg="' + a.opts[i].v + '">' + esc(a.opts[i].t) + '</button></td>';
@@ -1130,7 +1165,7 @@ function renderHdrAvg() {
   var t = teamMonthAvg(ds(now()));
   if (!t) { el.innerHTML = ''; el.className = ''; return; }
   el.className = t.avg >= S.teamWarn * 60 ? 'over' : '';
-  el.innerHTML = '今月の時間外在校等時間（全員平均）<b>' + fmtHM(t.avg) + '</b>';
+  el.innerHTML = '今月の時間外在校等時間（全員平均）<b>' + fmtDur(t.avg) + '</b>';
 }
 function renderToday() {
   var today = ds(now()), list = activeStaff(), nIn = 0, nOut = 0, i;
@@ -1385,8 +1420,8 @@ function askPassword(next) {
 var REC = { mode: 'day', date: '', sid: '', ym: '' };
 function recRowCells(r, c, showMod) {
   return '<td class="c">' + (r ? fmtHM(r.inM) : '') + '</td><td class="c">' + (r ? fmtHM(r.outM) : '') + '</td>' +
-    '<td class="r">' + fmtHM(c.stay) + (r && r.spans && r.spans.length > 1 ? ' <span class="mk">' + r.spans.length + '回</span>' : '') + '</td><td class="r">' + (c.brk == null ? '' : fmtHM(c.brk) + (r && r.brk != null ? '<span class="mk">手</span>' : '')) + '</td>' +
-    '<td class="r">' + fmtHM(c.zai) + '</td><td class="r">' + fmtHM(c.over) + '</td>' +
+    '<td class="r">' + fmtDur(c.stay) + (r && r.spans && r.spans.length > 1 ? ' <span class="mk">' + r.spans.length + '回</span>' : '') + '</td><td class="r">' + (c.brk == null ? '' : fmtDur(c.brk) + (r && r.brk != null ? '<span class="mk">手</span>' : '')) + '</td>' +
+    '<td class="r">' + fmtDur(c.zai) + '</td><td class="r">' + fmtDur(c.over) + '</td>' +
     (c.miss ? '<td class="miss">打刻漏れ</td>' : '<td></td>') +
     '<td>' + lunchMark(r) + homeMark(r) + esc(r ? r.note : '') + (r && r.kind ? ' <span class="mk">' + (r.kind === 'off' ? '休日扱い' : '勤務日扱い') + '</span>' : '') + '</td>' +
     (showMod ? '<td style="font-size:12px;">' + (r && r.upd ? '<span class="fx">修正</span> <span class="gray">' + esc(r.upd) + '</span>' : '') + '</td>' : '');
@@ -1433,8 +1468,8 @@ function renderRec() {
       h += '<tr class="clk' + (row.c.off ? ' off' : '') + (row.rec && row.rec.upd ? ' fixed' : '') + '" data-act="edit" data-arg="' + esc(row.date + '|' + REC.sid) + '"><td>' + mdw(row.date) + '</td><td class="hol">' + esc(lb || (row.c.off ? '休日' : '')) + '</td>' + recRowCells(row.rec, row.c, true) + '</tr>';
     }
     var t = pr.tot;
-    h += '<tr class="tot"><td colspan="2">合計（出勤 ' + t.days + '日）</td><td></td><td></td><td class="r">' + fmtHM(t.stay) + '</td><td class="r">' + fmtHM(t.brk) + '</td><td class="r">' + fmtHM(t.zai) + '</td><td class="r ' + (plusHome(t.over, t.homeLong) >= S.warn1 * 60 ? 'w2' : '') + '">' + fmtHM(t.over) +
-      (t.homeLong ? ' <span class="mk w2">＋持' + t.homeLong + '日＝' + fmtHM(plusHome(t.over, t.homeLong)) + '</span>' : '') + '</td><td class="miss">' + (t.miss ? t.miss + '件' : '') + '</td><td></td><td></td></tr></table>';
+    h += '<tr class="tot"><td colspan="2">合計（出勤 ' + t.days + '日）</td><td></td><td></td><td class="r">' + fmtDur(t.stay) + '</td><td class="r">' + fmtDur(t.brk) + '</td><td class="r">' + fmtDur(t.zai) + '</td><td class="r ' + (plusHome(t.over, t.homeLong) >= S.warn1 * 60 ? 'w2' : '') + '">' + fmtDur(t.over) +
+      (t.homeLong ? ' <span class="mk w2">＋持' + t.homeLong + '日 ' + fmtDur(plusHome(t.over, t.homeLong)) + '</span>' : '') + '</td><td class="miss">' + (t.miss ? t.miss + '件' : '') + '</td><td></td><td></td></tr></table>';
   }
   h += '<p class="note">行をクリックすると修正できます。<span class="fx">修正</span> の印と色がついた行は、あとから直した日です（個人票やExcelにも出ます）。「手」は休憩時間を手入力した日です。修正した内容と元の打刻は、すべて記録（dakoku_年-月.txt）に残ります。</p>';
   $('pg-rec').innerHTML = h;
@@ -1462,7 +1497,7 @@ function openEdit(d, sid) {
     '<p class="note">この日は <b>' + (off ? '休日' : '勤務日') + '</b>' + (lab ? '（' + esc(lab) + '）' : '') + 'です。</p>' +
     '<table class="frm">' +
     spanRows(r) +
-    '<tr><td class="lb">休憩</td><td colspan="4"><input id="edBrk" class="inp num" value="' + (r.brk == null ? '' : r.brk) + '" data-enter="ed-save"> 分　<span class="note">空欄＝自動（在校' + fmtHM(S.breakAfterMin) + 'を超えたら' + S.breakMin + '分。出入りが2回以上の日は0分）</span></td></tr>' +
+    '<tr><td class="lb">休憩</td><td colspan="4"><input id="edBrk" class="inp num" value="' + (r.brk == null ? '' : r.brk) + '" data-enter="ed-save"> 分　<span class="note">空欄＝自動（在校' + fmtDur(S.breakAfterMin) + 'を超えたら' + S.breakMin + '分。出入りが2回以上の日は0分）</span></td></tr>' +
     '<tr><td class="lb">昼休憩</td><td colspan="4"><select id="edLunch" class="inp"><option value="">（記録なし）</option>' +
     '<option value="ok"' + (r.lunch === 'ok' ? ' selected' : '') + '>取れた</option>' +
     '<option value="some"' + (r.lunch === 'some' ? ' selected' : '') + '>少しは取れた</option>' +
@@ -1549,11 +1584,11 @@ function renderSum(compute) {
     for (var i = 0; i < res.list.length; i++) {
       var e = res.list[i];
       h += '<tr><td class="c">' + (i + 1) + '</td><td>' + esc(e.staff.sid) + '</td><td>' + esc(e.staff.name) + '</td><td>' + esc(e.staff.job) + '</td><td class="r">' + e.days + '</td>' +
-        '<td class="r">' + fmtHM(e.stay) + '</td><td class="r">' + fmtHM(e.brk) + '</td><td class="r">' + fmtHM(e.zai) + '</td>' +
-        '<td class="r ' + warnClass(plusHome(e.over, e.homeLong), res.from, res.to) + '">' + fmtHM(e.over) +
-        (e.homeLong ? '<br><span class="mk w2">＋持ち帰り' + e.homeLong + '日 ＝ ' + fmtHM(plusHome(e.over, e.homeLong)) + '</span>' : '') + '</td>' +
-        (av ? '<td class="r avg">' + fmtHM(avgMin(e.zai, av)) + '</td><td class="r avg ' + warnClassM(avgMin(plusHome(e.over, e.homeLong), av)) + '">' + fmtHM(avgMin(e.over, av)) +
-          (e.homeLong ? '<br><span class="mk w2">＋持 ＝ ' + fmtHM(avgMin(plusHome(e.over, e.homeLong), av)) + '</span>' : '') + '</td>' : '') +
+        '<td class="r">' + fmtDur(e.stay) + '</td><td class="r">' + fmtDur(e.brk) + '</td><td class="r">' + fmtDur(e.zai) + '</td>' +
+        '<td class="r ' + warnClass(plusHome(e.over, e.homeLong), res.from, res.to) + '">' + fmtDur(e.over) +
+        (e.homeLong ? '<br><span class="mk w2">＋持ち帰り' + e.homeLong + '日 ＝ ' + fmtDur(plusHome(e.over, e.homeLong)) + '</span>' : '') + '</td>' +
+        (av ? '<td class="r avg">' + fmtDur(avgMin(e.zai, av)) + '</td><td class="r avg ' + warnClassM(avgMin(plusHome(e.over, e.homeLong), av)) + '">' + fmtDur(avgMin(e.over, av)) +
+          (e.homeLong ? '<br><span class="mk w2">＋持 ＝ ' + fmtDur(avgMin(plusHome(e.over, e.homeLong), av)) + '</span>' : '') + '</td>' : '') +
         (res.anyHome ? '<td class="r">' + (e.home ? e.home + '日' + (e.homeLong ? '<span class="mk">1時間以上' + e.homeLong + '日</span>' : '') : '') + '</td>' : '') +
         (res.anyFix ? '<td class="r">' + (e.fix ? '<span class="fx">修正</span> ' + e.fix + '日' : '') + '</td>' : '') +
         '<td class="c">' + (e.miss ? '<button class="btn sm dng" data-act="goto-person" data-arg="' + esc(e.staff.sid) + '">' + e.miss + '件</button>' : '') + '</td>' +
@@ -1562,19 +1597,19 @@ function renderSum(compute) {
     var ta = teamAvg(res);
     if (ta) {
       h += '<tr class="tot"><td colspan="4">全員平均（1人あたり・' + ta.n + '人）</td><td class="r">' + (Math.round(ta.days * 10) / 10) + '</td>' +
-        '<td class="r">' + fmtHM(ta.stay) + '</td><td class="r">' + fmtHM(ta.brk) + '</td><td class="r">' + fmtHM(ta.zai) + '</td>' +
-        '<td class="r">' + fmtHM(ta.over) + '</td>' +
-        (av ? '<td class="r avg">' + fmtHM(ta.zaiMonth) + '</td><td class="r avg ' + teamClass(ta.perMonth) + '">' + fmtHM(ta.perMonth) + '</td>' : '') +
+        '<td class="r">' + fmtDur(ta.stay) + '</td><td class="r">' + fmtDur(ta.brk) + '</td><td class="r">' + fmtDur(ta.zai) + '</td>' +
+        '<td class="r">' + fmtDur(ta.over) + '</td>' +
+        (av ? '<td class="r avg">' + fmtDur(ta.zaiMonth) + '</td><td class="r avg ' + teamClass(ta.perMonth) + '">' + fmtDur(ta.perMonth) + '</td>' : '') +
         (res.anyHome ? '<td class="r">' + (Math.round(ta.home * 10) / 10) + '日</td>' : '') +
         (res.anyFix ? '<td></td>' : '') + '<td></td><td></td></tr>';
     }
     h += '</table>';
-    if (ta) h += '<p class="avgbox' + (ta.perMonth >= S.teamWarn * 60 ? ' over' : '') + '">全員の時間外在校等時間　<b>1か月平均 ' + fmtHM(ta.perMonth) + '</b>' +
-      '　（この期間の1人あたり ' + fmtHM(ta.over) + ' ÷ ' + monthsText(ta.months) + '・' + ta.n + '人）' +
+    if (ta) h += '<p class="avgbox' + (ta.perMonth >= S.teamWarn * 60 ? ' over' : '') + '">全員の時間外在校等時間　<b>1か月平均 ' + fmtDur(ta.perMonth) + '</b>' +
+      '　（この期間の1人あたり ' + fmtDur(ta.over) + ' ÷ ' + monthsText(ta.months) + '・' + ta.n + '人）' +
       (ta.perMonth >= S.teamWarn * 60 ? '　※1か月あたり' + S.teamWarn + '時間以上です' : '') + '</p>';
     if (!res.list.length) h += '<p class="note">対象の職員がいません。</p>';
-    h += '<p class="note">在校時間＝出勤から退勤までの合計（1日に何回か出入りした日はその合計）。在校等時間＝在校時間−休憩（在校' + fmtHM(S.breakAfterMin) + 'を超えた日は' + S.breakMin + '分。出入りが2回以上の日は外出時間を除いているので引きません）。' +
-      '時間外在校等時間＝勤務日は在校等時間から所定の' + fmtHM(S.standardMin) + '（職員ごとに所定を決めている場合はその時間）を引いた時間、休日（土日祝・設定した休日）は在校等時間のすべて。<br>' +
+    h += '<p class="note">在校時間＝出勤から退勤までの合計（1日に何回か出入りした日はその合計）。在校等時間＝在校時間−休憩（在校' + fmtDur(S.breakAfterMin) + 'を超えた日は' + S.breakMin + '分。出入りが2回以上の日は外出時間を除いているので引きません）。' +
+      '時間外在校等時間＝勤務日は、勤務開始時刻（' + fmtHM(S.workStart) + '）より前と、勤務終了時刻（' + fmtHM(S.workEnd) + '）より後に学校にいた時間の合計。休日（土日祝・設定した休日）は在校等時間のすべて。<br>' +
       '期間が1か月以内のとき、時間外在校等時間が' + S.warn1 + '時間以上をオレンジ、' + S.warn2 + '時間以上を赤で表示します。打刻漏れ（出勤または退勤だけの日）は時間に含まれません。' +
       (hasAvg(res) ? '<br>1か月平均＝合計÷期間の月数（' + monthsText(res.months) + '。月ごとに、その月の日数のうち期間に入っている割合で数えます）。1か月平均の時間外在校等時間が' + S.warn1 + '時間以上をオレンジ、' + S.warn2 + '時間以上を赤で表示します。' : '') +
       '<br>「＋持ち帰り○日 ＝ ○:○○」は、時間外在校等時間に持ち帰り仕事「1時間以上」の日数×1時間を足した時間です。この時間が' + S.warn1 + '時間以上のときも色をつけています。</p>';
@@ -1646,7 +1681,7 @@ function colName(i) { var s = ''; i++; while (i > 0) { var m = (i - 1) % 26; s =
 var X = { DEF: 0, HEAD: 1, TXT: 2, DUR: 3, TIME: 4, DATE: 5, TITLE: 6, INT: 7, W1: 8, TXTB: 9, DURB: 10, INTB: 11, TXTH: 12, TIMEH: 13, DURH: 14, DATEH: 15, W2: 16, INTH: 17 };
 var STYLES_XML = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n' +
   '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
-  '<numFmts count="3"><numFmt numFmtId="164" formatCode="[h]:mm"/><numFmt numFmtId="165" formatCode="h:mm"/><numFmt numFmtId="166" formatCode="m/d(aaa)"/></numFmts>' +
+  '<numFmts count="3"><numFmt numFmtId="164" formatCode="[h]&quot;h&quot;mm&quot;m&quot;"/><numFmt numFmtId="165" formatCode="h:mm"/><numFmt numFmtId="166" formatCode="m/d(aaa)"/></numFmts>' +
   '<fonts count="4"><font><sz val="11"/><name val="Meiryo UI"/><family val="3"/><charset val="128"/></font><font><b/><sz val="11"/><name val="Meiryo UI"/><family val="3"/><charset val="128"/></font>' +
   '<font><b/><sz val="14"/><name val="Meiryo UI"/><family val="3"/><charset val="128"/></font><font><b/><sz val="11"/><color rgb="FF9C0006"/><name val="Meiryo UI"/><family val="3"/><charset val="128"/></font></fonts>' +
   '<fills count="6"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill>' +
@@ -1741,8 +1776,8 @@ function ruleText() {
   return ['※全員平均＝その期間の合計を在籍職員数で割った値。1か月平均は、さらに期間の月数で割った値です。',
     '※「＋持」は、時間外在校等時間に、持ち帰り仕事「1時間以上」の日数×1時間を足した時間です。この時間が45時間以上の人も注意の色にしています。',
     '※在校時間＝出勤から退勤までの合計（1日に何回か出入りした日はその合計。外出していた時間は含みません）。',
-    '※在校等時間＝在校時間−休憩時間（在校' + fmtHM(S.breakAfterMin) + 'を超えた日は' + S.breakMin + '分。出入りが2回以上の日は0分。手入力した日はその時間）。',
-    '※時間外在校等時間＝勤務日は在校等時間から所定の勤務時間（' + fmtHM(S.standardMin) + '。職員ごとに所定を決めている場合はその時間）を引いた時間。休日（土日・祝日・設定した休日）は在校等時間のすべて。',
+    '※在校等時間＝在校時間−休憩時間（在校' + fmtDur(S.breakAfterMin) + 'を超えた日は' + S.breakMin + '分。出入りが2回以上の日は0分。手入力した日はその時間）。',
+    '※時間外在校等時間＝勤務日は、勤務開始時刻より前と、勤務終了時刻より後に学校にいた時間の合計（学校の勤務時間 ' + fmtHM(S.workStart) + '〜' + fmtHM(S.workEnd) + '。職員ごとに決めている場合はその時間）。休日（土日・祝日・設定した休日）は在校等時間のすべて。',
     '※打刻漏れ（出勤または退勤の一方しかない日）は時間に含めていません。',
     '※［修正］は、あとから記録を直した日です（直した日時を表示しています）。元の打刻と直した内容はすべて記録に残しています。',
     '※昼休憩の欄　「取れた」／「少し」＝少しは取れた／「なし」＝取れなかった。持ち帰り仕事の欄　「なし」＝しなかった／「あり」＝した／「1時間以上」＝した（1時間以上）。',
@@ -1816,7 +1851,7 @@ function buildWorkbook(res, withSheets) {
   if (withSheets) {
     for (i = 0; i < res.list.length; i++) {
       var st = res.list[i].staff, p = PR[st.sid] || personalRows(st.sid, res.from, res.to);
-      rows = [[C('在校等時間 個人記録票', X.TITLE)], [C(periodText(res))], [C('職員番号：' + st.sid + '　氏名：' + st.name + (st.job ? '（' + st.job + '）' : '') + '　1日の所定の勤務時間：' + stdLabel(st))],
+      rows = [[C('在校等時間 個人記録票', X.TITLE)], [C(periodText(res))], [C('職員番号：' + st.sid + '　氏名：' + st.name + (st.job ? '（' + st.job + '）' : '') + '　勤務時間：' + workLabel(st))],
         [C('日付', X.HEAD), C('区分', X.HEAD), C('出勤', X.HEAD), C('退勤', X.HEAD), C('在校時間', X.HEAD), C('休憩', X.HEAD), C('在校等時間', X.HEAD), C('時間外在校等時間', X.HEAD), C('確認', X.HEAD), C('昼休憩', X.HEAD), C('持ち帰り仕事', X.HEAD), C('備考', X.HEAD), C('修正日時', X.HEAD)]];
       for (var q = 0; q < p.rows.length; q++) {
         var x = p.rows[q], rr = x.rec, cc = x.c, ho = cc.off;
@@ -1874,25 +1909,25 @@ function summaryHtml(res, last) {
     (res.anyHome ? '<th>持ち帰り<br>（日数）</th>' : '') + (res.anyFix ? '<th>修正<br>（日数）</th>' : '') + '<th>打刻漏れ</th></tr></thead><tbody>';
   for (var i = 0; i < res.list.length; i++) {
     var e = res.list[i];
-    h += '<tr><td class="c">' + (i + 1) + '</td><td>' + esc(e.staff.sid) + '</td><td>' + esc(e.staff.name) + '</td><td>' + esc(e.staff.job) + '</td><td class="r">' + e.days + '</td><td class="r">' + fmtHM(e.stay) +
-      '</td><td class="r">' + fmtHM(e.brk) + '</td><td class="r">' + fmtHM(e.zai) + '</td><td class="r"><b>' + fmtHM(e.over) + '</b>' +
-      (e.homeLong ? '<br><span class="pls">＋持' + e.homeLong + '日＝' + fmtHM(plusHome(e.over, e.homeLong)) + '</span>' : '') + '</td>' +
-      (hasAvg(res) ? '<td class="r">' + fmtHM(avgMin(e.zai, res.months)) + '</td><td class="r"><b>' + fmtHM(avgMin(e.over, res.months)) + '</b>' +
-        (e.homeLong ? '<br><span class="pls">＋持＝' + fmtHM(avgMin(plusHome(e.over, e.homeLong), res.months)) + '</span>' : '') + '</td>' : '') +
+    h += '<tr><td class="c">' + (i + 1) + '</td><td>' + esc(e.staff.sid) + '</td><td>' + esc(e.staff.name) + '</td><td>' + esc(e.staff.job) + '</td><td class="r">' + e.days + '</td><td class="r">' + fmtDur(e.stay) +
+      '</td><td class="r">' + fmtDur(e.brk) + '</td><td class="r">' + fmtDur(e.zai) + '</td><td class="r"><b>' + fmtDur(e.over) + '</b>' +
+      (e.homeLong ? '<br><span class="pls">＋持' + e.homeLong + '日 ' + fmtDur(plusHome(e.over, e.homeLong)) + '</span>' : '') + '</td>' +
+      (hasAvg(res) ? '<td class="r">' + fmtDur(avgMin(e.zai, res.months)) + '</td><td class="r"><b>' + fmtDur(avgMin(e.over, res.months)) + '</b>' +
+        (e.homeLong ? '<br><span class="pls">＋持 ' + fmtDur(avgMin(plusHome(e.over, e.homeLong), res.months)) + '</span>' : '') + '</td>' : '') +
       (res.anyHome ? '<td class="r">' + (e.home ? e.home + '日' + (e.homeLong ? '（1時間以上' + e.homeLong + '日）' : '') : '') + '</td>' : '') +
       (res.anyFix ? '<td class="r">' + (e.fix ? e.fix + '日' : '') + '</td>' : '') +
       '<td class="c">' + (e.miss || '') + '</td></tr>';
   }
   var ta2 = teamAvg(res);
   if (ta2) {
-    h += '<tr class="tot"><td colspan="4">全員平均（1人あたり・' + ta2.n + '人）</td><td class="r">' + (Math.round(ta2.days * 10) / 10) + '</td><td class="r">' + fmtHM(ta2.stay) +
-      '</td><td class="r">' + fmtHM(ta2.brk) + '</td><td class="r">' + fmtHM(ta2.zai) + '</td><td class="r"><b>' + fmtHM(ta2.over) + '</b></td>' +
-      (hasAvg(res) ? '<td class="r">' + fmtHM(ta2.zaiMonth) + '</td><td class="r"><b>' + fmtHM(ta2.perMonth) + '</b></td>' : '') +
+    h += '<tr class="tot"><td colspan="4">全員平均（1人あたり・' + ta2.n + '人）</td><td class="r">' + (Math.round(ta2.days * 10) / 10) + '</td><td class="r">' + fmtDur(ta2.stay) +
+      '</td><td class="r">' + fmtDur(ta2.brk) + '</td><td class="r">' + fmtDur(ta2.zai) + '</td><td class="r"><b>' + fmtDur(ta2.over) + '</b></td>' +
+      (hasAvg(res) ? '<td class="r">' + fmtDur(ta2.zaiMonth) + '</td><td class="r"><b>' + fmtDur(ta2.perMonth) + '</b></td>' : '') +
       (res.anyHome ? '<td class="r">' + (Math.round(ta2.home * 10) / 10) + '日</td>' : '') +
       (res.anyFix ? '<td></td>' : '') + '<td></td></tr>';
   }
   h += '</tbody></table>';
-  if (ta2) h += '<div class="teamavg">全員の時間外在校等時間　<b>1か月平均 ' + fmtHM(ta2.perMonth) + '</b>　（この期間の1人あたり ' + fmtHM(ta2.over) + ' ÷ ' + monthsText(ta2.months) + '・' + ta2.n + '人）' +
+  if (ta2) h += '<div class="teamavg">全員の時間外在校等時間　<b>1か月平均 ' + fmtDur(ta2.perMonth) + '</b>　（この期間の1人あたり ' + fmtDur(ta2.over) + ' ÷ ' + monthsText(ta2.months) + '・' + ta2.n + '人）' +
     (ta2.perMonth >= S.teamWarn * 60 ? '　※1か月あたり' + S.teamWarn + '時間以上です' : '') + '</div>';
   h += '<div class="pnote">' + (hasAvg(res) ? '※1か月平均＝合計÷期間の月数（' + monthsText(res.months) + '）。<br>' : '') + ruleText().join('<br>') + '</div></div>';
   return h;
@@ -1901,22 +1936,22 @@ function personalHtml(st, res, last) {
   var p = personalRows(st.sid, res.from, res.to), t = p.tot;
   var h = '<div class="pa-page' + (last ? ' pa-last' : '') + '">' +
     '<table class="stamps"><tr><td>本人</td><td>管理職</td></tr><tr class="b"><td></td><td></td></tr></table>' +
-    '<h1>在校等時間 個人記録票</h1><div class="info">' + esc(periodText(res)) + '<br>職員番号：' + esc(st.sid) + '　氏名：<b>' + esc(st.name) + '</b>' + (st.job ? '（' + esc(st.job) + '）' : '') + '　1日の所定の勤務時間：' + esc(stdLabel(st)) + '</div>' +
-    '<table class="pt pcard" style="clear:both;"><colgroup><col style="width:11%"><col style="width:9%"><col style="width:6%"><col style="width:6%"><col style="width:8%"><col style="width:6%"><col style="width:8%"><col style="width:9%"><col style="width:7%"><col style="width:9%"><col style="width:21%"></colgroup><thead><tr><th>日付</th><th class="nt">区分</th><th>出勤</th><th>退勤</th><th>在校時間</th><th>休憩</th><th>在校等<br>時間</th><th>時間外<br>在校等時間</th><th>昼休憩</th><th>持ち帰り<br>仕事</th><th class="nt">備考</th></tr></thead><tbody>';
+    '<h1>在校等時間 個人記録票</h1><div class="info">' + esc(periodText(res)) + '<br>職員番号：' + esc(st.sid) + '　氏名：<b>' + esc(st.name) + '</b>' + (st.job ? '（' + esc(st.job) + '）' : '') + '　勤務時間：' + esc(workLabel(st)) + '</div>' +
+    '<table class="pt pcard" style="clear:both;"><colgroup><col style="width:10%"><col style="width:8%"><col style="width:6%"><col style="width:6%"><col style="width:9%"><col style="width:7%"><col style="width:9%"><col style="width:10%"><col style="width:7%"><col style="width:8%"><col style="width:20%"></colgroup><thead><tr><th>日付</th><th class="nt">区分</th><th>出勤</th><th>退勤</th><th>在校時間</th><th>休憩</th><th>在校等<br>時間</th><th>時間外<br>在校等時間</th><th>昼休憩</th><th>持ち帰り<br>仕事</th><th class="nt">備考</th></tr></thead><tbody>';
   for (var i = 0; i < p.rows.length; i++) {
     var x = p.rows[i], r = x.rec, c = x.c;
     h += '<tr class="' + (c.off ? 'off' : '') + '"><td>' + mdw(x.date) + '</td><td class="nt"' + kindStyle(dayLabel(x.date) || (c.off ? '休日' : '')) + '>' + esc(dayLabel(x.date) || (c.off ? '休日' : '')) + '</td><td class="c">' + (r ? fmtHM(r.inM) : '') + '</td><td class="c">' + (r ? fmtHM(r.outM) : '') +
-      '</td><td class="r">' + fmtHM(c.stay) + '</td><td class="r">' + fmtHM(c.brk) + '</td><td class="r">' + fmtHM(c.zai) + '</td><td class="r">' + fmtHM(c.over) + '</td>' +
+      '</td><td class="r">' + fmtDur(c.stay) + '</td><td class="r">' + fmtDur(c.brk) + '</td><td class="r">' + fmtDur(c.zai) + '</td><td class="r">' + fmtDur(c.over) + '</td>' +
       '<td class="c">' + (r && (r.lunch === 'no' || r.lunch === 'some') ? '<b>' + lunchShort(r.lunch) + '</b>' : lunchShort(r ? r.lunch : '')) + '</td>' +
       '<td class="c">' + (r && (r.home === 'long' || r.home === 'yes') ? '<b>' + homeShort(r.home) + '</b>' : homeShort(r ? r.home : '')) + '</td>' +
       '<td class="nt">' + (c.miss ? '打刻漏れ ' : '') + (r && r.spans && r.spans.length > 1 ? '出入り ' + esc(spansText(r, ' / ')) + '　' : '') + esc(r ? r.note : '') + (r && r.upd ? ' <b>［修正 ' + esc(r.upd.substr(5, 11)) + '］</b>' : '') + '</td></tr>';
   }
-  h += '<tr class="tot"><td>合計</td><td>出勤' + t.days + '日</td><td></td><td></td><td class="r">' + fmtHM(t.stay) + '</td><td class="r">' + fmtHM(t.brk) + '</td><td class="r">' + fmtHM(t.zai) + '</td><td class="r' + (plusHome(t.over, t.homeLong) >= S.warn1 * 60 ? ' pw' : '') + '">' + fmtHM(t.over) +
-    (t.homeLong ? '<br><span class="pls">＋持' + t.homeLong + '日＝' + fmtHM(plusHome(t.over, t.homeLong)) + '</span>' : '') + '</td>' +
+  h += '<tr class="tot"><td>合計</td><td>出勤' + t.days + '日</td><td></td><td></td><td class="r">' + fmtDur(t.stay) + '</td><td class="r">' + fmtDur(t.brk) + '</td><td class="r">' + fmtDur(t.zai) + '</td><td class="r' + (plusHome(t.over, t.homeLong) >= S.warn1 * 60 ? ' pw' : '') + '">' + fmtDur(t.over) +
+    (t.homeLong ? '<br><span class="pls">＋持' + t.homeLong + '日 ' + fmtDur(plusHome(t.over, t.homeLong)) + '</span>' : '') + '</td>' +
     '<td class="c" style="font-size:7pt;line-height:1.15;">' + (t.lunchNo || t.lunchSome ? 'なし' + t.lunchNo + '日' + (t.lunchSome ? '<br>少し' + t.lunchSome + '日' : '') : '') + '</td>' +
     '<td class="c" style="font-size:7pt;line-height:1.15;">' + (t.home ? t.home + '日' + (t.homeLong ? '<br>1時間以上' + t.homeLong + '日' : '') : '') + '</td>' +
     '<td class="nt">' + (t.miss ? '打刻漏れ' + t.miss + '件　' : '') + (t.fix ? '修正' + t.fix + '日' : '') + '</td></tr>';
-  if (hasAvg(res)) h += '<tr class="tot"><td>1か月平均</td><td>' + monthsText(res.months) + '</td><td></td><td></td><td class="r">' + fmtHM(avgMin(t.stay, res.months)) + '</td><td class="r">' + fmtHM(avgMin(t.brk, res.months)) + '</td><td class="r">' + fmtHM(avgMin(t.zai, res.months)) + '</td><td class="r">' + fmtHM(avgMin(t.over, res.months)) + '</td><td></td><td></td><td></td></tr>';
+  if (hasAvg(res)) h += '<tr class="tot"><td>1か月平均</td><td>' + monthsText(res.months) + '</td><td></td><td></td><td class="r">' + fmtDur(avgMin(t.stay, res.months)) + '</td><td class="r">' + fmtDur(avgMin(t.brk, res.months)) + '</td><td class="r">' + fmtDur(avgMin(t.zai, res.months)) + '</td><td class="r">' + fmtDur(avgMin(t.over, res.months)) + '</td><td></td><td></td><td></td></tr>';
   h += '</tbody></table><div class="pnote">' + ruleText().join('<br>') + '</div></div>';
   return h;
 }
@@ -1991,19 +2026,20 @@ function renderStaff() {
   var list = STAFF.filter(function (s) { return STAFF_ALL || s.active; }).sort(byOrder);
   var h = '<h2>職員の登録</h2><div class="toolbar"><button class="btn pri" data-act="staff-new">＋ 職員を追加</button><button class="btn" data-act="staff-bulk">Excelから貼り付けてまとめて登録</button><span class="sp"></span>' +
     '<label><input type="checkbox" id="staffAll"' + (STAFF_ALL ? ' checked' : '') + '> 在籍していない人も表示</label></div>';
-  h += '<table class="grid"><tr><th>表示順</th><th>職員番号</th><th>氏名</th><th>職名</th><th>1日の所定</th><th>状態</th><th></th></tr>';
+  h += '<table class="grid"><tr><th>表示順</th><th>職員番号</th><th>氏名</th><th>職名</th><th>勤務時間</th><th>状態</th><th></th></tr>';
   for (var i = 0; i < list.length; i++) {
     var s = list[i];
     h += '<tr' + (s.active ? '' : ' class="off"') + '><td class="c">' + (s.order === 999 ? '' : s.order) + '</td><td>' + esc(s.sid) + '</td><td>' + esc(s.name) + '</td><td>' + esc(s.job) + '</td>' +
-      '<td class="c">' + stdText(s) + '</td>' +
+      '<td class="c">' + workText(s) + '</td>' +
       '<td>' + (s.active ? '在籍' : '<span class="gray">在籍なし</span>') + '</td>' +
       '<td><button class="btn sm pri" data-act="staff-edit" data-arg="' + esc(s.sid) + '">編集</button></td></tr>';
   }
   h += '</table>';
   if (!list.length) h += '<p class="note">まだ職員が登録されていません。「＋ 職員を追加」または「Excelから貼り付けてまとめて登録」から登録してください。</p>';
   h += '<p class="note">転出・退職した人は削除せず「在籍」のチェックを外してください（過去の記録と集計が残ります）。<br>' +
-    '「1日の所定」は、その人の1日の所定の勤務時間です。空欄（灰色）なら学校の既定（' + fmtHM(S.standardMin) + '）を使います。育児短時間勤務などの人は、編集画面でその人の所定を入れてください。<br>' +
-    '早出・遅出（時差出勤）は、所定の長さが同じなら設定は要りません。在校等時間から所定を引くだけなので、始まる時刻がちがっても正しく計算されます。<br>' +
+    '「勤務時間」は、その人の勤務開始時刻〜勤務終了時刻です。空欄（灰色）なら学校の設定（' + fmtHM(S.workStart) + '〜' + fmtHM(S.workEnd) + '）を使います。<br>' +
+    '時差出勤の人・育児短時間勤務の人は、編集画面でその人の勤務時間を入れてください。曜日によって違う人は「曜日ごとに違うとき」に書きます。<br>' +
+    '時間外在校等時間は、勤務開始時刻より前と、勤務終了時刻より後に学校にいた時間の合計です。<br>' +
     '打刻画面には「在籍」の人だけが、表示順に並びます。</p>';
   $('pg-staff').innerHTML = h;
 }
@@ -2012,15 +2048,15 @@ function openStaffEdit(sid) {
   if (!s) {
     var mx = 0;
     for (var i = 0; i < STAFF.length; i++) if (STAFF[i].order !== 999 && STAFF[i].order > mx) mx = STAFF[i].order;
-    s = { sid: '', name: '', job: '', card: '', order: mx + 1, active: true, std: '', stdw: '' };
+    s = { sid: '', name: '', job: '', card: '', order: mx + 1, active: true, ws: '', we: '', wsw: '' };
   }
   var h = '<h3>' + (isNew ? '職員を追加' : '職員の編集') + '</h3><table class="frm">' +
     '<tr><td class="lb">職員番号</td><td>' + (isNew ? '<input id="stSid" class="inp" style="width:140px;" data-enter="staff-save">　<span class="note">英数字（例 001）。あとから変更できません</span>' : '<b>' + esc(s.sid) + '</b>') + '</td></tr>' +
     '<tr><td class="lb">氏名</td><td><input id="stName" class="inp" style="width:220px;" value="' + esc(s.name) + '" data-enter="staff-save"></td></tr>' +
     '<tr><td class="lb">職名</td><td><input id="stJob" class="inp" style="width:160px;" value="' + esc(s.job) + '" data-enter="staff-save"> <span class="note">例 校長・教頭・教諭・養護教諭・事務職員</span></td></tr>' +
     '<tr><td class="lb">表示順</td><td><input id="stOrder" class="inp num" value="' + (s.order === 999 ? '' : s.order) + '" data-enter="staff-save"></td></tr>' +
-    '<tr><td class="lb">1日の所定の勤務時間</td><td><input id="stStd" class="inp tm" value="' + esc(s.std || '') + '" data-enter="staff-save"> <span class="note">空欄＝学校の既定（' + fmtHM(S.standardMin) + '）。育児短時間勤務などの人は 5:45 のように入れます</span></td></tr>' +
-    '<tr><td class="lb">曜日ごとに違うとき</td><td><input id="stStdW" class="inp" style="width:320px;" value="' + esc(s.stdw || '') + '" data-enter="staff-save"><br><span class="note">例 月5:45 水5:45　…書いた曜日だけ上書きします。早出・遅出だけなら記入は要りません</span></td></tr>' +
+    '<tr><td class="lb">勤務時間</td><td><input id="stWs" class="inp tm" value="' + esc(s.ws || '') + '" data-enter="staff-save"> 〜 <input id="stWe" class="inp tm" value="' + esc(s.we || '') + '" data-enter="staff-save"> <span class="note">空欄＝学校の設定（' + fmtHM(S.workStart) + '〜' + fmtHM(S.workEnd) + '）。時差出勤・育児短時間勤務の人はここに入れます</span></td></tr>' +
+    '<tr><td class="lb">曜日ごとに違うとき</td><td><input id="stWsw" class="inp" style="width:340px;" value="' + esc(s.wsw || '') + '" data-enter="staff-save"><br><span class="note">例 月7:45-16:15 金7:45-16:15　…書いた曜日だけ上書きします</span></td></tr>' +
     '<tr><td class="lb">在籍</td><td><label><input type="checkbox" id="stActive"' + (s.active ? ' checked' : '') + '> 在籍している（打刻・一覧の対象）</label></td></tr>' +
     '</table><div id="stErr" class="hol"></div><div class="mbtns">' + (isNew ? '' : '<button class="btn dng" data-act="staff-del" data-arg="' + esc(s.sid) + '" style="float:left;">削除</button>') +
     '<button class="btn" data-act="close">キャンセル</button><button class="btn pri" data-act="staff-save" data-arg="' + esc(s.sid) + '">保存する</button></div>';
@@ -2037,17 +2073,21 @@ function saveStaffEdit(sid) {
   if (ord !== '' && !/^\d+$/.test(ord)) { $('stErr').innerHTML = '表示順は数字で入力してください。'; return; }
   if (card) for (var i = 0; i < STAFF.length; i++) if (STAFF[i].sid !== nsid && normCode(STAFF[i].card) === card) { $('stErr').innerHTML = 'このカードは ' + esc(STAFF[i].name) + ' さんに登録されています。'; return; }
   if (isNew) { s = { sid: nsid }; STAFF.push(s); }
-  var stdv = $('stStd') ? toHalf($('stStd').value).replace(/\s/g, '') : '';
-  if (stdv !== '' && typeof parseHM(stdv) !== 'number') { $('stErr').innerHTML = '1日の所定の勤務時間は 7:45 のように入力してください。'; return; }
-  var stdwv = $('stStdW') ? clean($('stStdW').value).replace(/^\s+|\s+$/g, '') : '';
-  if (stdwv !== '') {
-    var mp = parseStdW(stdwv), cnt2 = 0, kk;
+  var wsv = $('stWs') ? toHalf($('stWs').value).replace(/\s/g, '') : '';
+  var wev = $('stWe') ? toHalf($('stWe').value).replace(/\s/g, '') : '';
+  if ((wsv === '') !== (wev === '')) { $('stErr').innerHTML = '勤務時間は、始まりと終わりの両方を入力してください（学校の設定を使うときは両方とも空欄）。'; return; }
+  if (wsv !== '' && (typeof parseHM(wsv) !== 'number' || typeof parseHM(wev) !== 'number')) { $('stErr').innerHTML = '勤務時間は 8:15 のように入力してください。'; return; }
+  if (wsv !== '' && parseHM(wev) <= parseHM(wsv)) { $('stErr').innerHTML = '勤務の終わりは、始まりより後の時刻にしてください。'; return; }
+  var wswv = $('stWsw') ? clean($('stWsw').value).replace(/^\s+|\s+$/g, '') : '';
+  if (wswv !== '') {
+    var mp = parseWsw(wswv), cnt2 = 0, kk;
     for (kk in mp) if (mp.hasOwnProperty(kk)) cnt2++;
-    if (!cnt2) { $('stErr').innerHTML = '曜日ごとの所定は「月5:45 水5:45」のように入力してください。'; return; }
+    if (!cnt2) { $('stErr').innerHTML = '曜日ごとの勤務時間は「月7:45-16:15」のように入力してください。'; return; }
   }
   s.name = name; s.job = clean($('stJob').value).replace(/^\s+|\s+$/g, ''); s.card = card; s.order = ord === '' ? 999 : +ord; s.active = $('stActive').checked;
-  s.std = stdv === '' ? '' : fmtHM(parseHM(stdv));
-  s.stdw = stdwv;
+  s.ws = wsv === '' ? '' : fmtHM(parseHM(wsv));
+  s.we = wev === '' ? '' : fmtHM(parseHM(wev));
+  s.wsw = wswv;
   saveStaff();
   closeModal(); renderStaff();
 }
@@ -2507,7 +2547,7 @@ function renderImport(c, det, source, fy) {
     for (var i = 0; i < c.list.length; i++) {
       var x = c.list[i];
       h += '<tr><td class="c"><input type="checkbox" id="im_' + i + '"' + (x.on ? ' checked' : '') + '></td><td>' + slash(x.date) + '（' + WD[parseDS(x.date).getDay()] + '）</td><td>' +
-        (x.type === 'off' ? '<b style="color:#b42318;">休日にする</b>' : '<b style="color:#1d5aa8;">勤務日にする</b>') + '</td><td style="white-space:normal;">' + esc(x.text) + '</td></tr>';
+        (x.type === 'off' ? '<b style="color:#b42318;">休日にする</b>' : '<b style="color:#6a2d8f;">勤務日にする</b>') + '</td><td style="white-space:normal;">' + esc(x.text) + '</td></tr>';
     }
     h += '</table>';
   }
@@ -2551,7 +2591,8 @@ function imSave() {
 function renderSet() {
   var h = '<h2>設定・バックアップ</h2><div class="card"><h3 style="margin-top:0;">基本の設定</h3><table class="frm">' +
     '<tr><td class="lb">学校名</td><td><input id="cfSchool" class="inp" style="width:260px;" value="' + esc(S.schoolName) + '"></td></tr>' +
-    '<tr><td class="lb">1日の所定の勤務時間</td><td><input id="cfStd" class="inp tm" value="' + fmtHM(S.standardMin) + '"> <span class="note">例 7:45　学校の既定。育児短時間勤務など、人によってちがう場合は「職員」タブでその人に入れます</span></td></tr>' +
+    '<tr><td class="lb">勤務時間（学校）</td><td><input id="cfWs" class="inp tm" value="' + fmtHM(S.workStart) + '"> 〜 <input id="cfWe" class="inp tm" value="' + fmtHM(S.workEnd) + '"> <span class="note">例 8:15 〜 16:45　勤務開始時刻より前と、勤務終了時刻より後に学校にいた時間が「時間外在校等時間」になります</span><br>' +
+    '<span class="note">時差出勤・育児短時間勤務など、人によってちがう場合は「職員」タブでその人に入れます。</span></td></tr>' +
     '<tr><td class="lb">休憩時間</td><td><input id="cfBrk" class="inp num" value="' + S.breakMin + '"> 分　在校時間が <input id="cfBrkAfter" class="inp tm" value="' + fmtHM(S.breakAfterMin) + '"> を超えた日に差し引く<br><span class="note">1日に2回以上の出入りがある日は、外出していた時間をすでに除いているため差し引きません。</span></td></tr>' +
     '<tr><td class="lb">昼休憩の確認</td><td><label><input type="checkbox" id="cfLunch"' + (S.askLunch ? ' checked' : '') + '> 退勤の打刻のあとに「昼休憩は とれましたか？」とたずねる</label><br>' +
     '<span class="note">何も押さないと <input id="cfLunchSec" class="inp num" value="' + S.lunchSec + '"> 秒で「取れた」として自動で記録し、画面は消えます。' +
@@ -2598,12 +2639,12 @@ function renderSet() {
   $('pg-set').innerHTML = h;
 }
 function saveSet() {
-  var std = parseHM($('cfStd').value), ba = parseHM($('cfBrkAfter').value), num = function (id) { var v = toHalf($(id).value).replace(/\s/g, ''); return /^\d+$/.test(v) ? +v : null; };
+  var ws = parseHM($('cfWs').value), we = parseHM($('cfWe').value), ba = parseHM($('cfBrkAfter').value), num = function (id) { var v = toHalf($(id).value).replace(/\s/g, ''); return /^\d+$/.test(v) ? +v : null; };
   var brk = num('cfBrk'), dup = num('cfDup'), w1 = num('cfW1'), w2 = num('cfW2'), idle = num('cfIdle');
   var lsec = num('cfLunchSec'), lsome = num('cfLunchSome'), hsec = num('cfHomeSec'), tw = num('cfTeam');
-  if (typeof std !== 'number' || typeof ba !== 'number' || brk === null || dup === null || w1 === null || w2 === null || idle === null || lsec === null || lsome === null || hsec === null || tw === null) { $('cfErr').innerHTML = '数字や時刻の入力を確認してください。'; return; }
+  if (typeof ws !== 'number' || typeof we !== 'number' || we <= ws || typeof ba !== 'number' || brk === null || dup === null || w1 === null || w2 === null || idle === null || lsec === null || lsome === null || hsec === null || tw === null) { $('cfErr').innerHTML = '数字や時刻の入力を確認してください。'; return; }
   S.schoolName = clean($('cfSchool').value).replace(/^\s+|\s+$/g, '');
-  S.standardMin = std; S.breakAfterMin = ba; S.breakMin = brk; S.dupSec = dup; S.warn1 = w1; S.warn2 = w2; S.idleMin = idle;
+  S.workStart = ws; S.workEnd = we; S.standardMin = Math.max(0, we - ws - brk); S.breakAfterMin = ba; S.breakMin = brk; S.dupSec = dup; S.warn1 = w1; S.warn2 = w2; S.idleMin = idle;
   S.allowSid = $('cfSid') ? $('cfSid').checked : S.allowSid;
   S.askLunch = $('cfLunch').checked;
   S.askHome = $('cfHome').checked;
@@ -2832,7 +2873,7 @@ window.TC = {
   handleCode: handleCode, summarize: summarize, buildWorkbook: buildWorkbook, Store: Store, gotoTab: gotoTab,
   staff: function () { return STAFF; }, saveStaff: saveStaff, loadStaff: loadStaff, S: function () { return S; }, saveSettings: saveSettings,
   holidayName: holidayName, isOff: isOff, calc: calc, getRec: getRec, saveMonth: saveMonth, personalRows: personalRows, readLog: readLog,
-  reloadAll: reloadAll, autoBackup: autoBackup, stdFor: stdFor, stdOf: stdOf, parseStdW: parseStdW, teamAvg: teamAvg, teamMonthAvg: teamMonthAvg, overOfStaff: overOfStaff, playBuzzer: playBuzzer, undoPunch: undoPunch, answerAsk: answerAsk, openAsk: openAsk, ASK: function () { return ASK; }, monthsOf: monthsOf, avgMin: avgMin, spansText: spansText, spansStr: spansStr, fitPunch: fitPunch, PZ: function () { return PZ; }, importPath: importPath, importText: importText, importBytes: importBytes, imSave: imSave, IM: function () { return IM; }, updateModeUI: updateModeUI, curMode: curMode, fmtHM: fmtHM, printSummary: printSummary, personalHtml: personalHtml, SUM: SUM, REC: REC, doAct: doAct
+  reloadAll: reloadAll, autoBackup: autoBackup, fmtDur: fmtDur, workFor: workFor, workOf: workOf, parseWsw: parseWsw, teamAvg: teamAvg, teamMonthAvg: teamMonthAvg, overOfStaff: overOfStaff, playBuzzer: playBuzzer, undoPunch: undoPunch, answerAsk: answerAsk, openAsk: openAsk, ASK: function () { return ASK; }, monthsOf: monthsOf, avgMin: avgMin, spansText: spansText, spansStr: spansStr, fitPunch: fitPunch, PZ: function () { return PZ; }, importPath: importPath, importText: importText, importBytes: importBytes, imSave: imSave, IM: function () { return IM; }, updateModeUI: updateModeUI, curMode: curMode, fmtHM: fmtHM, printSummary: printSummary, personalHtml: personalHtml, SUM: SUM, REC: REC, doAct: doAct
 };
 start();
 })();
@@ -2841,6 +2882,16 @@ start();
 /* お試し版（ブラウザ用）：はじめて開いたときだけ、架空の職員20人と記録を用意する */
 (function () {
   try {
+    /* 見本データの版。見本の中身を変えたら数字を上げる → 以前に開いた人のブラウザでも新しい見本に入れ替わる */
+    var SEEDVER = '2026-09-21c', VK = 'tcneo_seedver';
+    var cur = null; try { cur = localStorage.getItem(VK); } catch (e0) { cur = SEEDVER; }
+    if (cur !== SEEDVER) {
+      var del = [], j;
+      for (j = 0; j < localStorage.length; j++) if (localStorage.key(j).indexOf('tc_') === 0) del.push(localStorage.key(j));
+      for (j = 0; j < del.length; j++) localStorage.removeItem(del[j]);
+      localStorage.setItem(VK, SEEDVER);
+      if (del.length && localStorage.getItem(VK) === SEEDVER) { location.reload(); return; }
+    }
     var st = TC.staff();
     if (st.length) return;
     var NAMES = ['田中 修', '松本 恵子', '林 大輔', '山口 さおり', '井上 健太', '木村 美穂', '清水 翔', '山本 真由美',
@@ -2848,17 +2899,19 @@ start();
       '藤田 美咲', '岡本 浩二', '西村 由香', '森 勝'];
     var JOBS = ['校長', '教頭', '教諭', '教諭', '教諭', '教諭', '教諭', '教諭', '教諭', '教諭', '教諭', '教諭',
       '教諭', '教諭', '教諭', '教諭', '養護教諭', '事務職員', '講師', '学校用務員'];
-    for (var i = 0; i < 20; i++) st.push({ sid: ('00' + (i + 1)).slice(-3), name: NAMES[i], job: JOBS[i], card: '', order: i + 1, active: true });
+    for (var i = 0; i < 20; i++) st.push({ sid: ('00' + (i + 1)).slice(-3), name: NAMES[i], job: JOBS[i], card: '', order: i + 1, active: true, ws: '', we: '', wsw: '' });
+    st[16].ws = '8:15'; st[16].we = '13:10';   /* 藤田 美咲＝育児短時間勤務（13:10退勤） */
+    st[11].wsw = '月7:45-16:15 金7:45-16:15';   /* 吉田 奈々＝月・金は時差出勤 */
     TC.saveStaff();
     var S = TC.S();
     S.schoolName = '○○市立△△小学校（お試し）';
     TC.saveSettings();
-    /* 今日からさかのぼって45日分の記録（土日と祝日はとばす） */
+    /* 今日からさかのぼって75日分の記録（土日と祝日はとばす）＝先月1か月分がまるごと入る */
     function p2(n) { return (n < 10 ? '0' : '') + n; }
     function hsh(a, b) { var x = ((a + 7) * 73856093) ^ ((b + 13) * 19349663); x = x & 0x7fffffff; x = (x * 1103515245 + 12345) & 0x7fffffff; return x / 0x7fffffff; }
     var LU = ['ok', 'some', 'no'], HO = ['no', 'yes', 'long'], months = {};
     var now0 = new Date(), d0 = new Date(now0.getFullYear(), now0.getMonth(), now0.getDate());
-    for (var k = 45; k >= 1; k--) {
+    for (var k = 75; k >= 1; k--) {
       var dt = new Date(d0.getFullYear(), d0.getMonth(), d0.getDate() - k);
       if (dt.getDay() === 0 || dt.getDay() === 6) continue;
       var ds = dt.getFullYear() + '-' + p2(dt.getMonth() + 1) + '-' + p2(dt.getDate());
@@ -2866,7 +2919,13 @@ start();
       for (i = 0; i < 20; i++) {
         if (hsh(i, k) < 0.06) continue;
         var inM = 445 + Math.floor(hsh(i, k) * 25);
-        var outM = inM + 500 + Math.floor(hsh(i + 3, k) * 240);
+        if (i === 13) inM = 485 + Math.floor(hsh(i, k) * 8);   /* 山田 陽子＝子どもを送ってから8:05ごろ出勤 */
+        if (i === 11 && (dt.getDay() === 1 || dt.getDay() === 5)) inM -= 30;   /* 吉田 奈々＝月・金は30分早出 */
+        var outM = inM + (i === 16 ? 290 + Math.floor(hsh(i + 3, k) * 50) : i === 13 ? 510 + Math.floor(hsh(i + 3, k) * 15) : 500 + Math.floor(hsh(i + 3, k) * 240));
+        if (i === 13) outM = Math.max(outM, 1005 + Math.floor(hsh(i + 4, k) * 10));   /* 山田 陽子＝子育てで16:45すぎには帰る */
+        var EXTRA = { 8: 230, 4: 150, 1: 130, 6: 100, 12: 95, 10: 90 };   /* 残業の多い人（赤・オレンジが見えるように） */
+        if (EXTRA[i]) outM += EXTRA[i];
+        if (i === 11 && (dt.getDay() === 1 || dt.getDay() === 5)) outM -= 30;
         var r = TC.getRec(ds, ('00' + (i + 1)).slice(-3), true);
         r.spans = [[inM, outM]]; r.inM = inM; r.outM = outM;
         var u = hsh(i + 5, k);
@@ -2874,6 +2933,7 @@ start();
         r.brk = r.lunch === 'no' ? 0 : r.lunch === 'some' ? 20 : null;
         var v = hsh(i + 9, k);
         r.home = HO[v < 0.12 ? 2 : v < 0.4 ? 1 : 0];
+        if (i === 13) { r.home = 'long'; r.lunch = LU[u < 0.45 ? 2 : u < 0.8 ? 1 : 0]; r.brk = r.lunch === 'no' ? 0 : r.lunch === 'some' ? 20 : null; }   /* 山田 陽子＝毎日、家で2時間以上 */
       }
       months[ds.substr(0, 7)] = 1;
     }
