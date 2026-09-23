@@ -59,7 +59,6 @@ table.grid td.w1{background:#fde7d3 !important;}
 table.grid td.w2{background:#f8c9c4 !important;color:#8a1010;font-weight:bold;}
 .mk{display:inline-block;padding:1px 7px;border-radius:4px;background:#ffe3ef;color:#8c2350;font-size:17px;font-weight:bold;}
 .mk.g{background:#e6f3e9;color:#1f6b36;}
-.mk.tp{background:#e9e3f8;color:#4b3b8f;}
 .mk.w{background:#ffeacd;color:#8a4b00;}
 .mk.r{background:#ffdcd8;color:#a1201a;}
 .mk.w2{background:#ffeacd;color:#8a4b00;font-size:14px;}
@@ -468,7 +467,7 @@ function downloadBytes(name, bytes, mime) {
 var DEFAULTS = {
   schoolName: '', standardMin: 465, workStart: 495, workEnd: 1005, breakMin: 45, breakAfterMin: 360, dupSec: 3, allowSid: true,
   password: '', extraHolidays: '', extraWorkdays: '', warn1: 45, warn2: 80, idleMin: 3, zoom: 'auto',
-  askLunch: true, lunchSec: 4, lunchSomeMin: 20, askHome: true, homeSec: 4, teamWarn: 30, askTask: true, taskSec: 4, askTrip: true, tripSec: 4
+  askLunch: true, lunchSec: 5, lunchSomeMin: 20, askHome: true, homeSec: 5, teamWarn: 30, askTask: true, taskSec: 5
 };
 var S = {};
 function parseDayList(text) {
@@ -637,7 +636,7 @@ function loadMonth(ym) {
       if (c.length < 2) continue;
       var b = c[4] === '' || c[4] == null ? null : parseInt(c[4], 10);
       if (b !== null && isNaN(b)) b = null;
-      var rr = { date: c[0], sid: c[1], inM: hmVal(c[2]), outM: hmVal(c[3]), brk: b, kind: c[5] || '', note: c[6] || '', upd: c[7] || '', spans: [], lunch: c[9] || '', home: c[10] || '', ltask: c[11] || '', htask: c[12] || '', trip: c[13] || '' };
+      var rr = { date: c[0], sid: c[1], inM: hmVal(c[2]), outM: hmVal(c[3]), brk: b, kind: c[5] || '', note: c[6] || '', upd: c[7] || '', spans: [], lunch: c[9] || '', home: c[10] || '', ltask: c[11] || '', htask: c[12] || '' };
       rr.spans = parseSpans(c[8] || '');
       if (!rr.spans.length && (rr.inM != null || rr.outM != null)) rr.spans = [[rr.inM, rr.outM]];
       syncRec(rr);
@@ -649,19 +648,19 @@ function loadMonth(ym) {
 }
 function saveMonth(ym) {
   var m = loadMonth(ym), keys = Object.keys(m.recs).sort();
-  var L = ['#日付\t職員番号\t出勤\t退勤\t休憩(分)\t区分\t備考\t修正日時\t出入り\t昼休憩\t持ち帰り\t昼休憩の業務内容\t持ち帰りの業務内容\t出張'];
+  var L = ['#日付\t職員番号\t出勤\t退勤\t休憩(分)\t区分\t備考\t修正日時\t出入り\t昼休憩\t持ち帰り\t昼休憩の業務内容\t持ち帰りの業務内容'];
   for (var i = 0; i < keys.length; i++) {
     var r = m.recs[keys[i]];
-    L.push([r.date, clean(r.sid), hmFile(r.inM), hmFile(r.outM), r.brk == null ? '' : r.brk, r.kind, clean(r.note), r.upd, spansStr(r.spans), r.lunch || '', r.home || '', r.ltask || '', r.htask || '', r.trip || ''].join('\t'));
+    L.push([r.date, clean(r.sid), hmFile(r.inM), hmFile(r.outM), r.brk == null ? '' : r.brk, r.kind, clean(r.note), r.upd, spansStr(r.spans), r.lunch || '', r.home || '', r.ltask || '', r.htask || ''].join('\t'));
   }
   Store.write('kiroku_' + ym + '.txt', L.join('\r\n') + '\r\n');
 }
 function getRec(d, sid, create) {
   var m = loadMonth(ymOf(d)), k = d + '|' + sid;
-  if (!m.recs[k] && create) m.recs[k] = { date: d, sid: sid, inM: null, outM: null, brk: null, kind: '', note: '', upd: '', spans: [], lunch: '', home: '', ltask: '', htask: '', trip: '' };
+  if (!m.recs[k] && create) m.recs[k] = { date: d, sid: sid, inM: null, outM: null, brk: null, kind: '', note: '', upd: '', spans: [], lunch: '', home: '', ltask: '', htask: '' };
   return m.recs[k] || null;
 }
-function isEmptyRec(r) { return (!r.spans || !r.spans.length) && r.inM == null && r.outM == null && r.brk == null && !r.kind && !r.note && !r.trip; }
+function isEmptyRec(r) { return (!r.spans || !r.spans.length) && r.inM == null && r.outM == null && r.brk == null && !r.kind && !r.note; }
 function logLine(t, sid, code, action, detail) {
   var d = t || now();
   var line = [ds(d) + ' ' + pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds()), clean(sid), clean(code), action, clean(detail || '')].join('\t') + '\r\n';
@@ -765,7 +764,7 @@ function calc(rec, d, todayStr) {
 function summarize(from, to) {
   var todayStr = ds(now()), map = {}, list = [], res_tkL = {}, res_tkH = {};
   function ent(s) {
-    if (!map[s.sid]) { map[s.sid] = { staff: s, days: 0, stay: 0, brk: 0, zai: 0, over: 0, miss: 0, home: 0, homeLong: 0, homeLongD: 0, trip: 0, fix: 0 }; list.push(map[s.sid]); }
+    if (!map[s.sid]) { map[s.sid] = { staff: s, days: 0, stay: 0, brk: 0, zai: 0, over: 0, miss: 0, home: 0, homeLong: 0, homeLongD: 0, fix: 0 }; list.push(map[s.sid]); }
     return map[s.sid];
   }
   activeStaff().forEach(ent);
@@ -782,26 +781,23 @@ function summarize(from, to) {
       if (c.miss) e.miss++;
       if (r.ltask) { for (var q1 = 0; q1 < r.ltask.length; q1++) { res_tkL[r.ltask.charAt(q1)] = (res_tkL[r.ltask.charAt(q1)] || 0) + 1; } }
       if (r.htask) { for (var q2 = 0; q2 < r.htask.length; q2++) { res_tkH[r.htask.charAt(q2)] = (res_tkH[r.htask.charAt(q2)] || 0) + 1; } }
-      if (isTrip(r)) e.trip++;
       if (isHome(r)) { e.home++; if (isLongHome(r.home)) { e.homeLongD++; e.homeLong += homeHrs(r.home); } }
       if (r.upd) e.fix++;
     }
   }
   list.sort(function (a, b) { return byOrder(a.staff, b.staff); });
   var anyHome = false, anyFix = false;
-  var anyTrip = false;
-  for (var q = 0; q < list.length; q++) { if (list[q].home) anyHome = true; if (list[q].fix) anyFix = true; if (list[q].trip) anyTrip = true; }
-  return { from: from, to: to, list: list, at: stamp(), months: monthsOf(from, to), anyHome: anyHome, anyFix: anyFix, anyTrip: anyTrip, tkL: res_tkL, tkH: res_tkH };
+  for (var q = 0; q < list.length; q++) { if (list[q].home) anyHome = true; if (list[q].fix) anyFix = true; }
+  return { from: from, to: to, list: list, at: stamp(), months: monthsOf(from, to), anyHome: anyHome, anyFix: anyFix, tkL: res_tkL, tkH: res_tkH };
 }
 function personalRows(sid, from, to) {
-  var todayStr = ds(now()), rows = [], t = { days: 0, stay: 0, brk: 0, zai: 0, over: 0, miss: 0, home: 0, homeLong: 0, homeLongD: 0, trip: 0, fix: 0, lunchNo: 0, lunchSome: 0 };
+  var todayStr = ds(now()), rows = [], t = { days: 0, stay: 0, brk: 0, zai: 0, over: 0, miss: 0, home: 0, homeLong: 0, homeLongD: 0, fix: 0, lunchNo: 0, lunchSome: 0 };
   eachDay(from, to, function (d) {
     var r = getRec(d, sid, false), c = calc(r, d, todayStr);
     rows.push({ date: d, rec: r, c: c });
     if (r && (r.inM != null || r.outM != null)) t.days++;
     if (c.stay != null) { t.stay += c.stay; t.brk += c.brk; t.zai += c.zai; t.over += c.over; }
     if (c.miss) t.miss++;
-    if (isTrip(r)) t.trip++;
     if (isHome(r)) { t.home++; if (isLongHome(r.home)) { t.homeLongD++; t.homeLong += homeHrs(r.home); } }
     if (r && r.lunch === 'no') t.lunchNo++;
     if (r && r.lunch === 'some') t.lunchSome++;
@@ -874,25 +870,6 @@ var TASKS = [
   { v: 'c', t: '生徒指導・生活指導等', s: '子どもへの直接対応', n: '生指' },
   { v: 'd', t: 'その他', s: '', n: '他' }
 ];
-/* 出張：a＝来る前（午前など）／p＝退勤のあと／d＝まる1日 */
-function tripLabel(v) {
-  if (!v) return '';
-  if (v.indexOf('d') >= 0) return '出張（終日）';
-  var o = [];
-  if (v.indexOf('a') >= 0) o.push('出勤前');
-  if (v.indexOf('p') >= 0) o.push('退勤後');
-  return '出張（' + o.join('・') + '）';
-}
-function tripAdd(cur, ch) { cur = cur || ''; return cur.indexOf(ch) >= 0 ? cur : (ch === 'd' ? 'd' : cur + ch); }
-function isTrip(r) { return !!(r && r.trip); }
-/* 前の勤務日（土日・祝日はとばす）をさがす */
-function prevWorkday(d, sid) {
-  for (var i = 1; i <= 7; i++) {
-    var dd = addDays(d, -i);
-    if (!isOff(dd, (getRec(dd, sid, false) || {}).kind || '')) return dd;
-  }
-  return addDays(d, -1);
-}
 function taskOf(v) { for (var i = 0; i < TASKS.length; i++) if (TASKS[i].v === v) return TASKS[i]; return null; }
 function taskLabel(code) {
   var o = [], i, t;
@@ -979,10 +956,6 @@ function lunchMark(r) {
   if (!r || !r.lunch) return '';
   var c = r.lunch === 'no' ? 'r' : r.lunch === 'some' ? 'w' : 'g';
   return '<span class="mk ' + c + '">昼休憩 ' + lunchLabel(r.lunch) + '</span> ';
-}
-function tripMark(r) {
-  if (!r || !r.trip) return '';
-  return '<span class="mk tp">' + tripLabel(r.trip) + '</span> ';
 }
 function homeMark(r) {
   if (!r || !r.home) return '';
@@ -1094,7 +1067,7 @@ function punchStaff(sid) {
 }
 function punchFor(st, code) {
   var t = now(), today = ds(t), hm = t.getHours() * 60 + t.getMinutes();
-  if (ASK) { ASK_Q = []; if (ASK.kind === 'task') finishTask(true); else answerAsk('auto'); }
+  if (ASK) answerAsk('auto');
   var rec = getRec(today, st.sid, true);
   var last = LAST_TAP[st.sid];
   var lastRec = Math.max(rec.inM == null ? -1 : rec.inM, rec.outM == null ? -1 : rec.outM);
@@ -1132,7 +1105,7 @@ function punchFor(st, code) {
     if (cc.stay != null) m2 += '　（在校 ' + fmtDur(cc.stay) + (times > 1 ? '・出入り' + times + '回' : '') + '）';
   }
   LAST_TAP[st.sid] = t.getTime();
-  UNDO = { ym: ymOf(today), key: today + '|' + st.sid, sid: st.sid, date: today, name: st.name, spans: snapSpans, brk: rec.brk, lunch: rec.lunch || '', home: rec.home || '', ltask: rec.ltask || '', htask: rec.htask || '', trip: rec.trip || '',
+  UNDO = { ym: ymOf(today), key: today + '|' + st.sid, sid: st.sid, date: today, name: st.name, spans: snapSpans, brk: rec.brk, lunch: rec.lunch || '', home: rec.home || '', ltask: rec.ltask || '', htask: rec.htask || '',
     label: (cls === 'in' ? (times > 1 ? times + '回目の出勤 ' : '出勤 ') : '退勤 ') + fmtHM(hm) };
   try {
     saveMonth(ymOf(today));
@@ -1149,26 +1122,13 @@ function punchFor(st, code) {
   renderUndo();
   setForce('');
   renderToday();
-  ASK_Q = [];
-  if (cls === 'in' && rec.spans.length === 1) {
-    if (S.askTrip) ASK_Q.push('tripIn');
-    if (S.askHome) ASK_Q.push('home');
-  } else if (cls === 'out' && closedCount(rec) === 1) {
-    if (S.askLunch) ASK_Q.push('lunch');
-    if (S.askTrip) ASK_Q.push('tripOut');
-  }
-  nextAsk(st, today);
+  if (cls === 'out' && S.askLunch && closedCount(rec) === 1) openAsk('lunch', st, today);
+  else if (cls === 'in' && S.askHome && rec.spans.length === 1) openAsk('home', st, today);
 }
-var ASK = null, ASK_T1 = null, ASK_T2 = null, ASK_Q = [], ASK_ST = null, ASK_D = '';
-function nextAsk(st, d) {
-  if (st) { ASK_ST = st; ASK_D = d; }
-  if (!ASK_Q.length) return;
-  var k = ASK_Q.shift();
-  openAsk(k, ASK_ST, ASK_D);
-}
+var ASK = null, ASK_T1 = null, ASK_T2 = null;
 var ASKS = {
   lunch: {
-    q: '昼休憩', qs: 'は とれましたか？', sec: function () { return S.lunchSec || 4; }, def: 'ok', cls: 'out', log: '昼休憩',
+    q: '昼休憩', qs: 'は とれましたか？', sec: function () { return S.lunchSec || 5; }, def: 'ok', cls: 'out', log: '昼休憩',
     opts: [{ v: 'ok', t: '取れた', c: 'ok' }, { v: 'some', t: '少しは取れた', c: 'some' }, { v: 'no', t: '取れなかった', c: 'no' }],
     label: function (v) { return lunchLabel(v); },
     apply: function (r, v) {
@@ -1178,29 +1138,8 @@ var ASKS = {
     },
     detail: function (r, d) { var c = calc(r, d, ds(now())); return '（休憩 ' + fmtDur(c.brk) + '・在校等 ' + fmtDur(c.zai) + '）'; }
   },
-  tripIn: {
-    q: '出勤', qs: 'の記録', sub: '（出張のときだけ えらんでください）', sec: function () { return S.tripSec || 4; }, def: 'no', cls: 'in', log: '出勤の種類',
-    opts: [{ v: 'no', t: '通常勤務', c: 'ok' }, { v: 'a', t: '今日これまで出張だった', c: 'some' }, { v: 'prev', t: '昨日は出張だった', c: 'no' }],
-    label: function (v) { return v === 'no' ? '通常勤務' : v === 'a' ? '今日これまで出張だった' : '昨日は出張だった'; },
-    apply: function (r, v, K) {
-      if (v === 'a') r.trip = tripAdd(r.trip, 'a');
-      else if (v === 'prev') {
-        var pd = prevWorkday(K.date, K.sid), pr = getRec(pd, K.sid, true);
-        pr.trip = 'd';
-        try { saveMonth(ymOf(pd)); } catch (e) {}
-      }
-    },
-    detail: function (r, d, v) { return v === 'prev' ? '（' + mdw(prevWorkday(d, r.sid)) + ' を 出張（終日）として記録しました）' : ''; }
-  },
-  tripOut: {
-    q: '退勤', qs: 'の記録', sub: '（出張のときだけ えらんでください）', sec: function () { return S.tripSec || 4; }, def: 'no', cls: 'out', log: '退勤の種類',
-    opts: [{ v: 'no', t: '通常退勤', c: 'ok' }, { v: 'p', t: '今から出張', c: 'some' }],
-    label: function (v) { return v === 'no' ? '通常退勤' : '今から出張'; },
-    apply: function (r, v) { if (v === 'p') r.trip = tripAdd(r.trip, 'p'); },
-    detail: function () { return ''; }
-  },
   home: {
-    q: '持ち帰り', qs: '仕事は しましたか？', sub: '（前の日の分）', sec: function () { return S.homeSec || 4; }, def: 'no', cls: 'in', log: '持ち帰り仕事',
+    q: '持ち帰り', qs: '仕事は しましたか？', sub: '（前の日の分）', sec: function () { return S.homeSec || 5; }, def: 'no', cls: 'in', log: '持ち帰り仕事',
     opts: [{ v: 'no', t: 'しなかった', c: 'ok' }, { v: 'yes', t: 'した', c: 'some' }, { v: 'long', t: 'した（1時間以上）', c: 'no' }, { v: 'hand', t: 'した（手入力）', c: 'hd' }],
     label: function (v) { return homeLabel(v); },
     apply: function (r, v) { r.home = v; },
@@ -1261,7 +1200,7 @@ function openTaskAsk(kind, st, d) {
   var ov = $('lunchOv');
   if (!ov) return;
   var prev = lastTask(st.sid, kind);
-  ASK = { kind: 'task', sub: kind, sid: st.sid, date: d, name: st.name, sel: prev, left: S.taskSec || 4 };
+  ASK = { kind: 'task', sub: kind, sid: st.sid, date: d, name: st.name, sel: prev, left: S.taskSec || 5 };
   $('lunchQ').innerHTML = '業務内容<span class="qs">は？</span><span class="lsub">（' + (kind === 'lunch' ? '休憩が取れなかった' : '持ち帰りでした') + '仕事・いくつでも選べます）</span>';
   $('lunchWho').innerHTML = esc(st.name) + ' さん';
   drawTaskBtns();
@@ -1269,7 +1208,7 @@ function openTaskAsk(kind, st, d) {
   sizeAsk();
   taskTick();
   ASK_T2 = setInterval(taskTick, 1000);
-  ASK_T1 = setTimeout(function () { finishTask(true); }, (S.taskSec || 4) * 1000 + 150);
+  ASK_T1 = setTimeout(function () { finishTask(true); }, (S.taskSec || 5) * 1000 + 150);
 }
 function drawTaskBtns() {
   var h = '<table class="lbtns tks"><tr>', i, t;
@@ -1287,13 +1226,13 @@ function toggleTask(v) {
   if (!ASK || ASK.kind !== 'task') return;
   var i = ASK.sel.indexOf(v);
   ASK.sel = i >= 0 ? ASK.sel.substr(0, i) + ASK.sel.substr(i + 1) : ASK.sel + v;
-  ASK.left = S.taskSec || 4;
+  ASK.left = S.taskSec || 5;
   if (ASK_T1) clearTimeout(ASK_T1);
   if (ASK_T2) clearInterval(ASK_T2);
   drawTaskBtns();
   taskTick();
   ASK_T2 = setInterval(taskTick, 1000);
-  ASK_T1 = setTimeout(function () { finishTask(true); }, (S.taskSec || 4) * 1000 + 150);
+  ASK_T1 = setTimeout(function () { finishTask(true); }, (S.taskSec || 5) * 1000 + 150);
 }
 function taskTick() {
   if (!ASK || ASK.kind !== 'task') return;
@@ -1327,7 +1266,6 @@ function finishTask(auto) {
   if (!auto) playBuzzer('ok');
   focusCard();
   renderToday();
-  nextAsk();
 }
 function askTick() {
   if (!ASK || ASK.kind === 'task') return;
@@ -1340,7 +1278,7 @@ function askHand() {
   if (!ASK) return;
   if (ASK_T1) clearTimeout(ASK_T1);
   if (ASK_T2) clearInterval(ASK_T2);
-  var sec = 10;
+  var sec = S.homeSec || 5;
   ASK.hand = true; ASK.def = 'long'; ASK.left = sec;
   $('lunchQ').innerHTML = '何時間<span class="qs">しましたか？</span><span class="lsub">（土日などの分も合わせて）</span>';
   var h = '<table class="lbtns hrs"><tr>';
@@ -1362,19 +1300,18 @@ function answerAsk(v) {
   if ($('lunchOv')) $('lunchOv').style.display = 'none';
   var r = getRec(K.date, K.sid, false);
   if (r) {
-    a.apply(r, v, K);
+    a.apply(r, v);
     try {
       saveMonth(ymOf(K.date));
       if (!auto || K.hand) logLine(null, K.sid, '', a.log, a.label(v));
     } catch (e) {}
-    if (LAST_MSG && LAST_MSG.cls === a.cls) { MSG_RIGHT = LAST_MSG.right || ''; showMsg(a.cls, LAST_MSG.a, LAST_MSG.b, a.log + '：' + a.label(v) + '　' + a.detail(r, K.date, v), 'none'); }
+    if (LAST_MSG && LAST_MSG.cls === a.cls) { MSG_RIGHT = LAST_MSG.right || ''; showMsg(a.cls, LAST_MSG.a, LAST_MSG.b, a.log + '：' + a.label(v) + '　' + a.detail(r, K.date), 'none'); }
   }
   if (!auto) playBuzzer('ok');
   focusCard();
   renderToday();
   var st2 = staffBySid(K.sid);
   if (st2 && S.askTask && ((K.kind === 'lunch' && v === 'no') || (K.kind === 'home' && (v === 'yes' || isLongHome(v))))) openTaskAsk(K.kind, st2, K.date);
-  else nextAsk();
 }
 var UNDO = null, UNDO_TIMER = null;
 function renderUndo() {
@@ -1392,7 +1329,6 @@ function undoPunch() {
     r.brk = u.brk == null ? null : u.brk;
     r.lunch = u.lunch || '';
     r.home = u.home || '';
-    r.trip = u.trip || '';
     r.ltask = u.ltask || '';
     r.htask = u.htask || '';
     syncRec(r);
@@ -1673,7 +1609,7 @@ function recRowCells(r, c, showMod) {
     '<td class="r">' + fmtDur(c.stay) + (r && r.spans && r.spans.length > 1 ? ' <span class="mk">' + r.spans.length + '回</span>' : '') + '</td><td class="r">' + (c.brk == null ? '' : fmtDur(c.brk) + (r && r.brk != null ? '<span class="mk">手</span>' : '')) + '</td>' +
     '<td class="r">' + fmtDur(c.zai) + '</td><td class="r">' + fmtDur(c.over) + '</td>' +
     (c.miss ? '<td class="miss">打刻漏れ</td>' : '<td></td>') +
-    '<td>' + tripMark(r) + lunchMark(r) + homeMark(r) + esc(r ? r.note : '') + (r && r.kind ? ' <span class="mk">' + (r.kind === 'off' ? '休日扱い' : '勤務日扱い') + '</span>' : '') + '</td>' +
+    '<td>' + lunchMark(r) + homeMark(r) + esc(r ? r.note : '') + (r && r.kind ? ' <span class="mk">' + (r.kind === 'off' ? '休日扱い' : '勤務日扱い') + '</span>' : '') + '</td>' +
     (showMod ? '<td style="font-size:12px;">' + (r && r.upd ? '<span class="fx">修正</span> <span class="gray">' + esc(r.upd) + '</span>' : '') + '</td>' : '');
 }
 var REC_HEAD = '<th>出勤</th><th>退勤</th><th>在校時間</th><th>休憩</th><th>在校等時間</th><th>時間外<br>在校等時間</th><th>確認</th><th>備考</th><th>修正</th>';
@@ -1757,11 +1693,6 @@ function openEdit(d, sid) {
     '<option value="long"' + (r.home === 'long' ? ' selected' : '') + '>した（1時間以上）</option>' +
     '<option value="yes"' + (r.home === 'yes' ? ' selected' : '') + '>した</option>' +
     '<option value="no"' + (r.home === 'no' ? ' selected' : '') + '>しなかった</option></select>　<span class="note">出勤の打刻のときに本人が答えた記録です</span></td></tr>' +
-    '<tr><td class="lb">出張</td><td colspan="4"><select id="edTrip" class="inp"><option value="">（なし）</option>' +
-    '<option value="a"' + (r.trip === 'a' ? ' selected' : '') + '>出張（出勤前）</option>' +
-    '<option value="p"' + (r.trip === 'p' ? ' selected' : '') + '>出張（退勤後）</option>' +
-    '<option value="ap"' + (r.trip === 'ap' ? ' selected' : '') + '>出張（出勤前・退勤後）</option>' +
-    '<option value="d"' + (r.trip === 'd' ? ' selected' : '') + '>出張（終日）</option></select>　<span class="note">年休で休んだ日と区別するための記録です（時間には足しません）</span></td></tr>' +
     taskEditRow('昼休憩の業務内容', 'edLtask', r.ltask) +
     taskEditRow('持ち帰りの業務内容', 'edHtask', r.htask) +
     '<tr><td class="lb">日の扱い</td><td colspan="4"><select id="edKind" class="inp"><option value="">自動（カレンダーどおり）</option><option value="work"' + (r.kind === 'work' ? ' selected' : '') + '>この人は勤務日として扱う</option><option value="off"' + (r.kind === 'off' ? ' selected' : '') + '>この人は休日として扱う（週休日の振替など）</option></select></td></tr>' +
@@ -1801,7 +1732,6 @@ function saveEdit(del) {
   r.brk = bs === '' ? null : +bs;
   if ($('edLunch')) r.lunch = $('edLunch').value;
   if ($('edHome')) r.home = $('edHome').value;
-  if ($('edTrip')) r.trip = $('edTrip').value;
   if ($('edLtask_a')) r.ltask = taskEditVal('edLtask');
   if ($('edHtask_a')) r.htask = taskEditVal('edHtask');
   r.kind = $('edKind').value;
@@ -1841,7 +1771,7 @@ function renderSum(compute) {
     if (av) h += '<p class="note">この期間は <b>' + monthsText(av) + '</b> です。1か月平均も表示しています。</p>';
     h += '<table class="grid"><tr><th>No</th><th>職員番号</th><th>氏名</th><th>職名</th><th>出勤日数</th><th>在校時間</th><th>休憩時間</th><th>在校等時間</th><th>時間外<br>在校等時間</th>' +
       (av ? '<th class="avg">1か月平均<br>在校等時間</th><th class="avg">1か月平均<br>時間外在校等時間</th>' : '') +
-      (res.anyHome ? '<th>持ち帰り<br>（日数）</th>' : '') + (res.anyTrip ? '<th>出張<br>（日数）</th>' : '') + (res.anyFix ? '<th>修正<br>（日数）</th>' : '') + '<th>打刻漏れ</th><th></th></tr>';
+      (res.anyHome ? '<th>持ち帰り<br>（日数）</th>' : '') + (res.anyFix ? '<th>修正<br>（日数）</th>' : '') + '<th>打刻漏れ</th><th></th></tr>';
     for (var i = 0; i < res.list.length; i++) {
       var e = res.list[i];
       h += '<tr><td class="c">' + (i + 1) + '</td><td>' + esc(e.staff.sid) + '</td><td>' + esc(e.staff.name) + '</td><td>' + esc(e.staff.job) + '</td><td class="r">' + e.days + '</td>' +
@@ -1851,7 +1781,6 @@ function renderSum(compute) {
         (av ? '<td class="r avg">' + fmtDur(avgMin(e.zai, av)) + '</td><td class="r avg ' + warnClassM(avgMin(plusHome(e.over, e.homeLong), av)) + '">' + fmtDur(avgMin(e.over, av)) +
           (e.homeLong ? '<br><span class="mk w2">＋持 ＝ ' + fmtDur(avgMin(plusHome(e.over, e.homeLong), av)) + '</span>' : '') + '</td>' : '') +
         (res.anyHome ? '<td class="r">' + (e.home ? e.home + '日' + (e.homeLongD ? '<span class="mk">1時間以上' + e.homeLongD + '日</span>' : '') : '') + '</td>' : '') +
-        (res.anyTrip ? '<td class="r">' + (e.trip ? e.trip + '日' : '') + '</td>' : '') +
         (res.anyFix ? '<td class="r">' + (e.fix ? '<span class="fx">修正</span> ' + e.fix + '日' : '') + '</td>' : '') +
         '<td class="c">' + (e.miss ? '<button class="btn sm dng" data-act="goto-person" data-arg="' + esc(e.staff.sid) + '">' + e.miss + '件</button>' : '') + '</td>' +
         '<td><button class="btn sm" data-act="print-one" data-arg="' + esc(e.staff.sid) + '">個人票を印刷</button></td></tr>';
@@ -1863,7 +1792,6 @@ function renderSum(compute) {
         '<td class="r">' + fmtDur(ta.over) + '</td>' +
         (av ? '<td class="r avg">' + fmtDur(ta.zaiMonth) + '</td><td class="r avg ' + teamClass(ta.perMonth) + '">' + fmtDur(ta.perMonth) + '</td>' : '') +
         (res.anyHome ? '<td class="r">' + (Math.round(ta.home * 10) / 10) + '日</td>' : '') +
-        (res.anyTrip ? '<td></td>' : '') +
         (res.anyFix ? '<td></td>' : '') + '<td></td><td></td></tr>';
     }
     h += '</table>';
@@ -2046,7 +1974,6 @@ function ruleText() {
     '※［修正］は、あとから記録を直した日です（直した日時を表示しています）。元の打刻と直した内容はすべて記録に残しています。',
     '※昼休憩の欄　「取れた」／「少し」＝少しは取れた／「なし」＝取れなかった。持ち帰り仕事の欄　「なし」＝しなかった／「あり」＝した／「1時間以上」＝した（1時間以上）／「5時間」など＝した（手入力）。',
     '※業務内容の欄　昼休憩が取れなかった日・持ち帰り仕事をした日に、本人が答えた仕事の種類です（いくつでも選べます）。',
-    '※出張の欄　打刻のときに本人が答えた記録です。学校にいない時間が、年休などの休みではなく出張（勤務）であることを示します。時間には足していません。',
     '※どちらも、出勤・退勤の打刻のときに本人が答えたものです（何も押さなかった日は「取れた」「なし」として記録しています）。'];
 }
 function buildWorkbook(res, withSheets) {
@@ -2055,7 +1982,6 @@ function buildWorkbook(res, withSheets) {
   var hd = [C('No', X.HEAD), C('職員番号', X.HEAD), C('氏名', X.HEAD), C('職名', X.HEAD), C('出勤日数', X.HEAD), C('在校時間', X.HEAD), C('休憩時間', X.HEAD), C('在校等時間', X.HEAD), C('時間外在校等時間', X.HEAD)];
   if (av) { hd.push(C('1か月平均 在校等時間', X.HEAD)); hd.push(C('1か月平均 時間外在校等時間', X.HEAD)); }
   if (res.anyHome) { hd.push(C('持ち帰り仕事（日数）', X.HEAD)); hd.push(C('うち1時間以上（日数）', X.HEAD)); hd.push(C('持ち帰りの時間（足す分）', X.HEAD)); hd.push(C('時間外＋持ち帰り', X.HEAD)); }
-  if (res.anyTrip) hd.push(C('出張（日数）', X.HEAD));
   if (res.anyFix) hd.push(C('修正した日数', X.HEAD));
   hd.push(C('打刻漏れ', X.HEAD));
   rows = [[C('在校等時間 集計表', X.TITLE)], [C(periodText(res) + (av ? '　（' + monthsText(av) + '）' : ''))], [C('出力日時：' + res.at)], hd];
@@ -2075,7 +2001,6 @@ function buildWorkbook(res, withSheets) {
       var pl = plusHome(e.over, e.homeLong), pw = warnMonth ? (pl >= S.warn2 * 60 ? X.W2 : pl >= S.warn1 * 60 ? X.W1 : X.DUR) : X.DUR;
       rw1.push(D(pl, pw));
     }
-    if (res.anyTrip) rw1.push(C(e.trip || '', X.INT));
     if (res.anyFix) rw1.push(C(e.fix || '', X.INT));
     rw1.push(C(e.miss || '', X.INT));
     rows.push(rw1);
@@ -2085,7 +2010,6 @@ function buildWorkbook(res, withSheets) {
     var rw2 = [C('', X.TXTB), C('全員平均', X.TXTB), C('（1人あたり・' + tae.n + '人）', X.TXTB), C('', X.TXTB), C(Math.round(tae.days * 10) / 10, X.TXTB), D(tae.stay, X.DURB), D(tae.brk, X.DURB), D(tae.zai, X.DURB), D(tae.over, X.DURB)];
     if (av) { rw2.push(D(tae.zaiMonth, X.DURB)); rw2.push(D(tae.perMonth, tae.perMonth >= S.teamWarn * 60 ? X.W2 : X.DURB)); }
     if (res.anyHome) { rw2.push(C(Math.round(tae.home * 10) / 10, X.TXTB)); rw2.push(C('', X.TXTB)); rw2.push(C('', X.TXTB)); rw2.push(C('', X.TXTB)); }
-    if (res.anyTrip) rw2.push(C('', X.TXTB));
     if (res.anyFix) rw2.push(C('', X.TXTB));
     rw2.push(C('', X.TXTB));
     rows.push(rw2);
@@ -2096,12 +2020,11 @@ function buildWorkbook(res, withSheets) {
   var cols1 = [5, 10, 16, 12, 9, 11, 11, 11, 15];
   if (av) { cols1.push(15); cols1.push(17); }
   if (res.anyHome) { cols1.push(15); cols1.push(14); cols1.push(15); cols1.push(15); }
-  if (res.anyTrip) cols1.push(12);
   if (res.anyFix) cols1.push(12);
   cols1.push(9);
   sheets.push({ name: '集計', cols: cols1, rows: rows, freeze: 4, merges: ['A1:' + String.fromCharCode(64 + cols1.length) + '1'] });
 
-  rows = [[C('日付', X.HEAD), C('曜日', X.HEAD), C('区分', X.HEAD), C('職員番号', X.HEAD), C('氏名', X.HEAD), C('出勤', X.HEAD), C('退勤', X.HEAD), C('在校時間', X.HEAD), C('休憩', X.HEAD), C('在校等時間', X.HEAD), C('時間外在校等時間', X.HEAD), C('確認', X.HEAD), C('昼休憩', X.HEAD), C('持ち帰り仕事', X.HEAD), C('昼休憩の業務内容', X.HEAD), C('持ち帰りの業務内容', X.HEAD), C('出張', X.HEAD), C('備考', X.HEAD), C('修正日時', X.HEAD)]];
+  rows = [[C('日付', X.HEAD), C('曜日', X.HEAD), C('区分', X.HEAD), C('職員番号', X.HEAD), C('氏名', X.HEAD), C('出勤', X.HEAD), C('退勤', X.HEAD), C('在校時間', X.HEAD), C('休憩', X.HEAD), C('在校等時間', X.HEAD), C('時間外在校等時間', X.HEAD), C('確認', X.HEAD), C('昼休憩', X.HEAD), C('持ち帰り仕事', X.HEAD), C('昼休憩の業務内容', X.HEAD), C('持ち帰りの業務内容', X.HEAD), C('備考', X.HEAD), C('修正日時', X.HEAD)]];
   var PR = {};
   for (i = 0; i < res.list.length; i++) {
     var sid = res.list[i].staff.sid, pr = personalRows(sid, res.from, res.to);
@@ -2114,32 +2037,32 @@ function buildWorkbook(res, withSheets) {
         C(sid, hol ? X.TXTH : X.TXT), C(res.list[i].staff.name, hol ? X.TXTH : X.TXT),
         D(r.inM, hol ? X.TIMEH : X.TIME), D(r.outM, hol ? X.TIMEH : X.TIME), D(c.stay, hol ? X.DURH : X.DUR), D(c.brk, hol ? X.DURH : X.DUR), D(c.zai, hol ? X.DURH : X.DUR), D(c.over, hol ? X.DURH : X.DUR),
         C(c.miss ? '打刻漏れ' : '', hol ? X.TXTH : X.TXT), C(lunchLabel(r.lunch), hol ? X.TXTH : X.TXT), C(homeLabel(r.home), hol ? X.TXTH : X.TXT),
-        C(taskLabel(r.ltask), hol ? X.TXTH : X.TXT), C(taskLabel(r.htask), hol ? X.TXTH : X.TXT), C(tripLabel(r.trip), hol ? X.TXTH : X.TXT),
+        C(taskLabel(r.ltask), hol ? X.TXTH : X.TXT), C(taskLabel(r.htask), hol ? X.TXTH : X.TXT),
         C((r.spans && r.spans.length > 1 ? '出入り ' + spansText(r, ' / ') + '　' : '') + r.note + (r.kind ? (r.note ? ' ' : '') + (r.kind === 'off' ? '[休日扱い]' : '[勤務日扱い]') : ''), hol ? X.TXTH : X.TXT), C(r.upd, hol ? X.TXTH : X.TXT)]);
     }
   }
-  sheets.push({ name: '明細', cols: [10, 5, 12, 10, 14, 8, 8, 10, 8, 11, 15, 9, 14, 16, 20, 20, 14, 24, 16], rows: rows, freeze: 1, landscape: true });
+  sheets.push({ name: '明細', cols: [10, 5, 12, 10, 14, 8, 8, 10, 8, 11, 15, 9, 14, 16, 20, 20, 24, 16], rows: rows, freeze: 1, landscape: true });
 
   if (withSheets) {
     for (i = 0; i < res.list.length; i++) {
       var st = res.list[i].staff, p = PR[st.sid] || personalRows(st.sid, res.from, res.to);
       rows = [[C('在校等時間 個人記録票', X.TITLE)], [C(periodText(res))], [C('職員番号：' + st.sid + '　氏名：' + st.name + (st.job ? '（' + st.job + '）' : '') + '　勤務時間：' + workLabel(st))],
-        [C('日付', X.HEAD), C('区分', X.HEAD), C('出勤', X.HEAD), C('退勤', X.HEAD), C('在校時間', X.HEAD), C('休憩', X.HEAD), C('在校等時間', X.HEAD), C('時間外在校等時間', X.HEAD), C('確認', X.HEAD), C('昼休憩', X.HEAD), C('持ち帰り仕事', X.HEAD), C('昼休憩の業務内容', X.HEAD), C('持ち帰りの業務内容', X.HEAD), C('出張', X.HEAD), C('備考', X.HEAD), C('修正日時', X.HEAD)]];
+        [C('日付', X.HEAD), C('区分', X.HEAD), C('出勤', X.HEAD), C('退勤', X.HEAD), C('在校時間', X.HEAD), C('休憩', X.HEAD), C('在校等時間', X.HEAD), C('時間外在校等時間', X.HEAD), C('確認', X.HEAD), C('昼休憩', X.HEAD), C('持ち帰り仕事', X.HEAD), C('昼休憩の業務内容', X.HEAD), C('持ち帰りの業務内容', X.HEAD), C('備考', X.HEAD), C('修正日時', X.HEAD)]];
       for (var q = 0; q < p.rows.length; q++) {
         var x = p.rows[q], rr = x.rec, cc = x.c, ho = cc.off;
         rows.push([C(serial(x.date), ho ? X.DATEH : X.DATE), C(dayLabel(x.date) || (ho ? '休日' : ''), ho ? X.TXTH : X.TXT), D(rr ? rr.inM : null, ho ? X.TIMEH : X.TIME), D(rr ? rr.outM : null, ho ? X.TIMEH : X.TIME),
           D(cc.stay, ho ? X.DURH : X.DUR), D(cc.brk, ho ? X.DURH : X.DUR), D(cc.zai, ho ? X.DURH : X.DUR), D(cc.over, ho ? X.DURH : X.DUR), C(cc.miss ? '打刻漏れ' : '', ho ? X.TXTH : X.TXT), C(rr ? lunchLabel(rr.lunch) : '', ho ? X.TXTH : X.TXT), C(rr ? homeLabel(rr.home) : '', ho ? X.TXTH : X.TXT),
-          C(rr ? taskLabel(rr.ltask) : '', ho ? X.TXTH : X.TXT), C(rr ? taskLabel(rr.htask) : '', ho ? X.TXTH : X.TXT), C(rr ? tripLabel(rr.trip) : '', ho ? X.TXTH : X.TXT),
+          C(rr ? taskLabel(rr.ltask) : '', ho ? X.TXTH : X.TXT), C(rr ? taskLabel(rr.htask) : '', ho ? X.TXTH : X.TXT),
           C(rr ? ((rr.spans && rr.spans.length > 1 ? '出入り ' + spansText(rr, ' / ') + '　' : '') + rr.note) : '', ho ? X.TXTH : X.TXT), C(rr ? rr.upd : '', ho ? X.TXTH : X.TXT)]);
       }
       var tt = p.tot;
       w = warnMonth ? (tt.over >= S.warn2 * 60 ? X.W2 : tt.over >= S.warn1 * 60 ? X.W1 : X.DURB) : X.DURB;
-      rows.push([C('合計', X.TXTB), C('出勤' + tt.days + '日', X.TXTB), C('', X.TXTB), C('', X.TXTB), D(tt.stay, X.DURB), D(tt.brk, X.DURB), D(tt.zai, X.DURB), D(tt.over, w), C(tt.miss ? tt.miss + '件' : '', X.TXTB), C('', X.TXTB), C(tt.home ? tt.home + '日' + (tt.homeLongD ? '（1時間以上' + tt.homeLongD + '日）' : '') + (tt.homeLong > tt.homeLongD ? '　計' + tt.homeLong + '時間' : '') : '', X.TXTB), C('', X.TXTB), C('', X.TXTB), C('', X.TXTB), C(tt.trip ? '出張' + tt.trip + '日' : '', X.TXTB), C(tt.fix ? '修正' + tt.fix + '日' : '', X.TXTB)]);
+      rows.push([C('合計', X.TXTB), C('出勤' + tt.days + '日', X.TXTB), C('', X.TXTB), C('', X.TXTB), D(tt.stay, X.DURB), D(tt.brk, X.DURB), D(tt.zai, X.DURB), D(tt.over, w), C(tt.miss ? tt.miss + '件' : '', X.TXTB), C('', X.TXTB), C(tt.home ? tt.home + '日' + (tt.homeLongD ? '（1時間以上' + tt.homeLongD + '日）' : '') + (tt.homeLong > tt.homeLongD ? '　計' + tt.homeLong + '時間' : '') : '', X.TXTB), C('', X.TXTB), C('', X.TXTB), C('', X.TXTB), C(tt.fix ? '修正' + tt.fix + '日' : '', X.TXTB)]);
       if (av) {
         var pa = avgMin(tt.over, av);
-        rows.push([C('1か月平均', X.TXTB), C(monthsText(av), X.TXTB), C('', X.TXTB), C('', X.TXTB), D(avgMin(tt.stay, av), X.DURB), D(avgMin(tt.brk, av), X.DURB), D(avgMin(tt.zai, av), X.DURB), D(pa, pa >= S.warn2 * 60 ? X.W2 : pa >= S.warn1 * 60 ? X.W1 : X.DURB), C('', X.TXTB), C('', X.TXTB), C('', X.TXTB), C('', X.TXTB), C('', X.TXTB), C('', X.TXTB), C('', X.TXTB), C('', X.TXTB)]);
+        rows.push([C('1か月平均', X.TXTB), C(monthsText(av), X.TXTB), C('', X.TXTB), C('', X.TXTB), D(avgMin(tt.stay, av), X.DURB), D(avgMin(tt.brk, av), X.DURB), D(avgMin(tt.zai, av), X.DURB), D(pa, pa >= S.warn2 * 60 ? X.W2 : pa >= S.warn1 * 60 ? X.W1 : X.DURB), C('', X.TXTB), C('', X.TXTB), C('', X.TXTB), C('', X.TXTB), C('', X.TXTB), C('', X.TXTB), C('', X.TXTB)]);
       }
-      sheets.push({ name: st.name || st.sid, cols: [11, 12, 8, 8, 10, 8, 11, 15, 9, 14, 16, 20, 20, 14, 26, 17], rows: rows, freeze: 4, merges: ['A1:P1'] });
+      sheets.push({ name: st.name || st.sid, cols: [11, 12, 8, 8, 10, 8, 11, 15, 9, 14, 16, 20, 20, 26, 17], rows: rows, freeze: 4, merges: ['A1:O1'] });
     }
   }
   return buildXlsx(sheets);
@@ -2179,7 +2102,7 @@ function summaryHtml(res, last) {
   var h = '<div class="pa-page' + (last ? ' pa-last' : '') + '"><h1>在校等時間 集計表</h1><div class="info">' + esc(periodText(res)) + '　　出力：' + esc(res.at) + '</div>' +
     '<table class="pt"><thead><tr><th>No</th><th>職員番号</th><th>氏名</th><th>職名</th><th>出勤日数</th><th>在校時間</th><th>休憩時間</th><th>在校等時間</th><th>時間外在校等時間</th>' +
     (hasAvg(res) ? '<th>1か月平均<br>在校等時間</th><th>1か月平均<br>時間外在校等時間</th>' : '') +
-    (res.anyHome ? '<th>持ち帰り<br>（日数）</th>' : '') + (res.anyTrip ? '<th>出張<br>（日数）</th>' : '') + (res.anyFix ? '<th>修正<br>（日数）</th>' : '') + '<th>打刻漏れ</th></tr></thead><tbody>';
+    (res.anyHome ? '<th>持ち帰り<br>（日数）</th>' : '') + (res.anyFix ? '<th>修正<br>（日数）</th>' : '') + '<th>打刻漏れ</th></tr></thead><tbody>';
   for (var i = 0; i < res.list.length; i++) {
     var e = res.list[i];
     h += '<tr><td class="c">' + (i + 1) + '</td><td>' + esc(e.staff.sid) + '</td><td>' + esc(e.staff.name) + '</td><td>' + esc(e.staff.job) + '</td><td class="r">' + e.days + '</td><td class="r">' + fmtDur(e.stay) +
@@ -2188,7 +2111,6 @@ function summaryHtml(res, last) {
       (hasAvg(res) ? '<td class="r">' + fmtDur(avgMin(e.zai, res.months)) + '</td><td class="r"><b>' + fmtDur(avgMin(e.over, res.months)) + '</b>' +
         (e.homeLong ? '<br><span class="pls">＋持 ' + fmtDur(avgMin(plusHome(e.over, e.homeLong), res.months)) + '</span>' : '') + '</td>' : '') +
       (res.anyHome ? '<td class="r">' + (e.home ? e.home + '日' + (e.homeLongD ? '（1時間以上' + e.homeLongD + '日）' : '') : '') + '</td>' : '') +
-      (res.anyTrip ? '<td class="r">' + (e.trip ? e.trip + '日' : '') + '</td>' : '') +
       (res.anyFix ? '<td class="r">' + (e.fix ? e.fix + '日' : '') + '</td>' : '') +
       '<td class="c">' + (e.miss || '') + '</td></tr>';
   }
@@ -2198,7 +2120,6 @@ function summaryHtml(res, last) {
       '</td><td class="r">' + fmtDur(ta2.brk) + '</td><td class="r">' + fmtDur(ta2.zai) + '</td><td class="r"><b>' + fmtDur(ta2.over) + '</b></td>' +
       (hasAvg(res) ? '<td class="r">' + fmtDur(ta2.zaiMonth) + '</td><td class="r"><b>' + fmtDur(ta2.perMonth) + '</b></td>' : '') +
       (res.anyHome ? '<td class="r">' + (Math.round(ta2.home * 10) / 10) + '日</td>' : '') +
-      (res.anyTrip ? '<td></td>' : '') +
       (res.anyFix ? '<td></td>' : '') + '<td></td></tr>';
   }
   h += '</tbody></table>';
@@ -2219,7 +2140,7 @@ function personalHtml(st, res, last) {
       '</td><td class="r">' + fmtDur(c.stay) + '</td><td class="r">' + fmtDur(c.brk) + '</td><td class="r">' + fmtDur(c.zai) + '</td><td class="r">' + fmtDur(c.over) + '</td>' +
       '<td class="c">' + (r && (r.lunch === 'no' || r.lunch === 'some') ? '<b>' + lunchShort(r.lunch) + '</b>' : lunchShort(r ? r.lunch : '')) + '</td>' +
       '<td class="c">' + (r && isHome(r) ? '<b>' + homeShort(r.home) + '</b>' : homeShort(r ? r.home : '')) + '</td>' +
-      '<td class="nt">' + (c.miss ? '打刻漏れ ' : '') + (r && r.trip ? '<b>' + esc(tripLabel(r.trip)) + '</b>　' : '') + (r && r.spans && r.spans.length > 1 ? '出入り ' + esc(spansText(r, ' / ')) + '　' : '') + taskCellText(r) + esc(r ? r.note : '') + (r && r.upd ? ' <b>［修正 ' + esc(r.upd.substr(5, 11)) + '］</b>' : '') + '</td></tr>';
+      '<td class="nt">' + (c.miss ? '打刻漏れ ' : '') + (r && r.spans && r.spans.length > 1 ? '出入り ' + esc(spansText(r, ' / ')) + '　' : '') + taskCellText(r) + esc(r ? r.note : '') + (r && r.upd ? ' <b>［修正 ' + esc(r.upd.substr(5, 11)) + '］</b>' : '') + '</td></tr>';
   }
   h += '<tr class="tot"><td>合計</td><td>出勤' + t.days + '日</td><td></td><td></td><td class="r">' + fmtDur(t.stay) + '</td><td class="r">' + fmtDur(t.brk) + '</td><td class="r">' + fmtDur(t.zai) + '</td><td class="r' + (plusHome(t.over, t.homeLong) >= S.warn1 * 60 ? ' pw' : '') + '">' + fmtDur(t.over) +
     (t.homeLong ? '<br><span class="pls">＋持' + t.homeLong + '時間 ' + fmtDur(plusHome(t.over, t.homeLong)) + '</span>' : '') + '</td>' +
@@ -2874,10 +2795,8 @@ function renderSet() {
     '「少しは取れた」は休憩 <input id="cfLunchSome" class="inp num" value="' + S.lunchSomeMin + '"> 分、「取れなかった」は0分で計算します。</span></td></tr>' +
     '<tr><td class="lb">持ち帰り仕事の確認</td><td><label><input type="checkbox" id="cfHome"' + (S.askHome ? ' checked' : '') + '> 出勤の打刻のあとに「持ち帰り仕事は しましたか？」とたずねる</label><br>' +
     '<span class="note">何も押さないと <input id="cfHomeSec" class="inp num" value="' + S.homeSec + '"> 秒で「しなかった」として自動で記録し、画面は消えます。朝いちばんの出勤のときだけ出ます。</span></td></tr>' +
-    '<tr><td class="lb">出張の確認</td><td><label><input type="checkbox" id="cfTrip"' + (S.askTrip ? ' checked' : '') + '> 出勤の打刻のあとに「通常勤務／今日これまで出張だった／昨日は出張だった」、退勤の打刻のあとに「通常退勤／今から出張」をたずねる</label><br>' +
-    '<span class="note">年休で休んだ日と、出張（勤務）の日を見分けるための記録です。何も押さないと <input id="cfTripSec" class="inp num" value="' + (S.tripSec || 4) + '"> 秒で「通常」として記録します。</span></td></tr>' +
     '<tr><td class="lb">業務内容の確認</td><td><label><input type="checkbox" id="cfTask"' + (S.askTask ? ' checked' : '') + '> 昼休憩「取れなかった」・持ち帰り「した」のあとに「業務内容は？」とたずねる（いくつでも選べます）</label><br>' +
-    '<span class="note">前回その人が選んだものが、はじめから選ばれています。何も押さないと <input id="cfTaskSec" class="inp num" value="' + (S.taskSec || 4) + '"> 秒でそのまま記録します。</span></td></tr>' +
+    '<span class="note">前回その人が選んだものが、はじめから選ばれています。何も押さないと <input id="cfTaskSec" class="inp num" value="' + (S.taskSec || 5) + '"> 秒でそのまま記録します。</span></td></tr>' +
     '<tr><td class="lb">二度打ち防止</td><td><input id="cfDup" class="inp num" value="' + S.dupSec + '"> 秒以内に同じ人が押しても記録しない</td></tr>' +
     '<tr><td class="lb">注意の色（1か月）</td><td>時間外在校等時間が <input id="cfW1" class="inp num" value="' + S.warn1 + '"> 時間以上をオレンジ、<input id="cfW2" class="inp num" value="' + S.warn2 + '"> 時間以上を赤<br>' +
     '<span class="note">打刻の画面と個人票では、本人の今月の時間外が ' + S.warn1 + ' 時間以上で赤くなります。</span></td></tr>' +
@@ -2928,8 +2847,6 @@ function saveSet() {
   S.askLunch = $('cfLunch').checked;
   S.askHome = $('cfHome').checked;
   if ($('cfTask')) S.askTask = $('cfTask').checked;
-  if ($('cfTrip')) S.askTrip = $('cfTrip').checked;
-  if ($('cfTripSec')) { var trsec = parseInt(toHalf($('cfTripSec').value), 10); if (!isNaN(trsec)) S.tripSec = Math.max(1, Math.min(60, trsec)); }
   if ($('cfTaskSec')) { var tsec = parseInt(toHalf($('cfTaskSec').value), 10); if (!isNaN(tsec)) S.taskSec = Math.max(1, Math.min(60, tsec)); }
   S.teamWarn = Math.max(1, Math.min(200, tw));
   S.homeSec = Math.max(1, Math.min(60, hsec));
@@ -3158,7 +3075,7 @@ window.TC = {
   handleCode: handleCode, summarize: summarize, buildWorkbook: buildWorkbook, Store: Store, gotoTab: gotoTab,
   staff: function () { return STAFF; }, saveStaff: saveStaff, loadStaff: loadStaff, S: function () { return S; }, saveSettings: saveSettings,
   holidayName: holidayName, isOff: isOff, calc: calc, getRec: getRec, saveMonth: saveMonth, personalRows: personalRows, readLog: readLog,
-  reloadAll: reloadAll, autoBackup: autoBackup, fmtDur: fmtDur, workFor: workFor, workOf: workOf, parseWsw: parseWsw, teamAvg: teamAvg, teamMonthAvg: teamMonthAvg, overOfStaff: overOfStaff, playBuzzer: playBuzzer, undoPunch: undoPunch, answerAsk: answerAsk, openAsk: openAsk, ASK: function () { return ASK; }, monthsOf: monthsOf, avgMin: avgMin, spansText: spansText, spansStr: spansStr, fitPunch: fitPunch, PZ: function () { return PZ; }, importPath: importPath, importText: importText, importBytes: importBytes, imSave: imSave, IM: function () { return IM; }, updateModeUI: updateModeUI, curMode: curMode, fmtHM: fmtHM, homeLabel: homeLabel, openTaskAsk: openTaskAsk, tripLabel: tripLabel, prevWorkday: prevWorkday, finishTask: finishTask, toggleTask: toggleTask, lastTask: lastTask, taskLabel: taskLabel, homeHrs: homeHrs, printSummary: printSummary, personalHtml: personalHtml, SUM: SUM, REC: REC, doAct: doAct
+  reloadAll: reloadAll, autoBackup: autoBackup, fmtDur: fmtDur, workFor: workFor, workOf: workOf, parseWsw: parseWsw, teamAvg: teamAvg, teamMonthAvg: teamMonthAvg, overOfStaff: overOfStaff, playBuzzer: playBuzzer, undoPunch: undoPunch, answerAsk: answerAsk, openAsk: openAsk, ASK: function () { return ASK; }, monthsOf: monthsOf, avgMin: avgMin, spansText: spansText, spansStr: spansStr, fitPunch: fitPunch, PZ: function () { return PZ; }, importPath: importPath, importText: importText, importBytes: importBytes, imSave: imSave, IM: function () { return IM; }, updateModeUI: updateModeUI, curMode: curMode, fmtHM: fmtHM, homeLabel: homeLabel, openTaskAsk: openTaskAsk, finishTask: finishTask, toggleTask: toggleTask, lastTask: lastTask, taskLabel: taskLabel, homeHrs: homeHrs, printSummary: printSummary, personalHtml: personalHtml, SUM: SUM, REC: REC, doAct: doAct
 };
 start();
 })();
@@ -3168,7 +3085,7 @@ start();
 (function () {
   try {
     /* 見本データの版。見本の中身を変えたら数字を上げる → 以前に開いた人のブラウザでも新しい見本に入れ替わる */
-    var SEEDVER = '2026-09-23f', VK = 'tcneo_seedver';
+    var SEEDVER = '2026-09-23h', VK = 'tcneo_seedver';
     var cur = null; try { cur = localStorage.getItem(VK); } catch (e0) { cur = SEEDVER; }
     if (cur !== SEEDVER) {
       var del = [], j;
@@ -3221,9 +3138,6 @@ start();
         if (i === 13) { r.home = dt.getDay() === 1 ? 'h4' : hsh(i + 6, k) < 0.35 ? 'h3' : 'h2'; r.lunch = LU[u < 0.45 ? 2 : u < 0.8 ? 1 : 0]; r.brk = r.lunch === 'no' ? 0 : r.lunch === 'some' ? 20 : null; }   /* 山田 陽子＝毎日、家で2〜3時間（月曜は土日の分も合わせて4時間） */
         if (i === 4 && dt.getDay() === 1 && k <= 14 && k > 7) r.home = 'h10';   /* 井上 健太＝土日に5時間ずつ → 月曜に「10時間」 */
         var w1 = hsh(i + 11, k), w2 = hsh(i + 13, k);
-        if (i === 2 && dt.getDay() === 3) r.trip = 'a';            /* 林 大輔＝水曜の午前は出張 */
-        if (i === 12 && dt.getDay() === 4 && k < 20) r.trip = 'p';  /* 佐々木 亮＝木曜は退勤後に出張 */
-        if (i === 5 && dt.getDay() === 2 && k < 20) { r.trip = 'd'; r.spans = []; r.inM = null; r.outM = null; r.lunch = ''; r.home = ''; }   /* 木村 美穂＝火曜は終日出張 */
         if (r.lunch === 'no') r.ltask = (w1 < 0.45 ? 'b' : w1 < 0.7 ? 'c' : w1 < 0.85 ? 'ab' : 'a') + (w2 < 0.2 ? 'c' : '');
         if (r.home && r.home !== 'no') r.htask = (w2 < 0.5 ? 'b' : w2 < 0.75 ? 'a' : w2 < 0.9 ? 'ab' : 'd');
       }
