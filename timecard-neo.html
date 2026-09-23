@@ -179,6 +179,8 @@ table.tiles td{padding:0;}
 #lunchQ .lsub{font-size:0.38em;font-weight:normal;color:#f5c6da;margin-left:12px;}
 #lunchWho{font-size:34px;color:#f5c6da;margin:8px 0 18px;}
 table.lbtns{width:94%;margin:0 auto;border-collapse:separate;border-spacing:16px 0;table-layout:fixed;}
+#lunchOv{overflow:hidden;}
+#lunchOv button.lb{overflow:hidden;padding:0 4px;}
 #lunchOv button.lb{width:100%;height:180px;font-size:40px;font-weight:bold;color:#fff;border:0;border-radius:18px;cursor:pointer;font-family:inherit;box-shadow:0 6px 18px rgba(0,0,0,0.35);}
 #lunchOv button.lb.ok{background:#2f8f4e;}
 #lunchOv button.lb.some{background:#d98b1e;}
@@ -190,12 +192,12 @@ table.lbtns{width:94%;margin:0 auto;border-collapse:separate;border-spacing:16px
 #lunchOv button.lb.ok2{background:#2f8f4e;width:52%;height:auto;padding:14px 0;font-size:0.8em;}
 div.tkok{margin-top:14px;text-align:center;}
 table.lbtns.tks{border-spacing:12px 0;}
-#lunchOv button.lb .l2{display:block;font-size:0.72em;margin-top:4px;white-space:nowrap;}
+#lunchOv button.lb .l2{display:block;font-size:0.72em;margin-top:4px;white-space:normal;line-height:1.2;}
 #lunchOv button.lb.hr{background:#7b1530;padding:0;}
 #lunchOv button.lb.hr .hn{display:block;font-size:2.4em;line-height:1;}
 #lunchOv button.lb.hr .hu{display:block;font-size:0.8em;}
 table.lbtns.hrs{border-spacing:10px 0;}
-#lunchCd{margin-top:20px;font-size:44px;font-weight:bold;color:#f9d7e5;white-space:nowrap;padding:0 16px;}
+#lunchCd{margin-top:20px;font-size:44px;font-weight:bold;color:#f9d7e5;white-space:nowrap;padding:0 16px;overflow:hidden;}
 td.avg,th.avg{background:#fdf2f7;}
 p.avgbox{margin:10px 0 0;padding:10px 16px;background:#fdeaf2;border-left:6px solid #8c2350;border-radius:4px;font-size:18px;color:#8c2350;}
 p.avgbox b{font-size:24px;}
@@ -867,7 +869,7 @@ function teamMonthAvg(d) {
 var TASKS = [
   { v: 'a', t: '校務分掌', s: '学校運営', n: '校務' },
   { v: 'b', t: '学習指導関係', s: '授業・教材・評価', n: '学習' },
-  { v: 'c', t: '生徒指導・生活指導等', s: '子どもへの直接対応', n: '生指' },
+  { v: 'c', t: '生徒指導関係', s: '', n: '生指' },
   { v: 'd', t: 'その他', s: '', n: '他' }
 ];
 function taskOf(v) { for (var i = 0; i < TASKS.length; i++) if (TASKS[i].v === v) return TASKS[i]; return null; }
@@ -934,7 +936,7 @@ function lunchLabel(v) { return v === 'no' ? '取れなかった' : v === 'some'
 function lunchNote(r) { return r && (r.lunch === 'no' || r.lunch === 'some') ? '昼休憩' + (r.lunch === 'no' ? 'なし' : '少し') : ''; }
 function homeHrs(v) { if (v === 'long') return 1; var m = /^h(\d+)$/.exec(v || ''); return m ? +m[1] : 0; }
 function isLongHome(v) { return homeHrs(v) > 0; }
-function homeLabel(v) { var hh = /^h(\d+)$/.exec(v || ''); return hh ? 'した（' + hh[1] + '時間）' : v === 'long' ? 'した（1時間以上）' : v === 'yes' ? 'した' : v === 'no' ? 'しなかった' : ''; }
+function homeLabel(v) { var hh = /^h(\d+)$/.exec(v || ''); return hh ? 'した（' + hh[1] + '時間）' : v === 'long' ? 'した（1時間以上）' : v === 'yes' ? 'した（1時間未満）' : v === 'no' ? 'しなかった' : ''; }
 function kindStyle(t) {
   var n = t ? t.length : 0;
   if (n <= 4) return '';
@@ -943,14 +945,14 @@ function kindStyle(t) {
   return ' style="font-size:6pt;line-height:1.1;"';
 }
 function lunchShort(v) { return v === 'no' ? 'なし' : v === 'some' ? '少し' : v === 'ok' ? '取れた' : ''; }
-function homeShort(v) { var hh = /^h(\d+)$/.exec(v || ''); return hh ? hh[1] + '時間' : v === 'long' ? '1時間以上' : v === 'yes' ? 'あり' : v === 'no' ? 'なし' : ''; }
-function homeNote(r) { return r && isHome(r) ? '持ち帰り' + (r.home === 'yes' ? 'あり' : homeShort(r.home)) : ''; }
+function homeShort(v) { var hh = /^h(\d+)$/.exec(v || ''); return hh ? hh[1] + '時間' : v === 'long' ? '1時間以上' : v === 'yes' ? '1時間未満' : v === 'no' ? 'なし' : ''; }
+function homeNote(r) { return r && isHome(r) ? '持ち帰り' + homeShort(r.home) : ''; }
 function homeHandOpts(cur) {
   var h = '';
   for (var k = HAND_MAX; k >= HAND_MIN; k--) h += '<option value="h' + k + '"' + (cur === 'h' + k ? ' selected' : '') + '>した（' + k + '時間）</option>';
   return h;
 }
-var HAND_MIN = 2, HAND_MAX = 10;
+var HAND_MIN = 1, HAND_MAX = 10;
 function isHome(r) { return !!r && (r.home === 'yes' || isLongHome(r.home)); }
 function lunchMark(r) {
   if (!r || !r.lunch) return '';
@@ -1140,12 +1142,20 @@ var ASKS = {
   },
   home: {
     q: '持ち帰り', qs: '仕事は しましたか？', sub: '（前の日の分）', sec: function () { return S.homeSec || 5; }, def: 'no', cls: 'in', log: '持ち帰り仕事',
-    opts: [{ v: 'no', t: 'しなかった', c: 'ok' }, { v: 'yes', t: 'した', c: 'some' }, { v: 'long', t: 'した（1時間以上）', c: 'no' }, { v: 'hand', t: 'した（手入力）', c: 'hd' }],
+    opts: [{ v: 'no', t: 'しなかった', c: 'ok' }, { v: 'yes', t: 'した（1時間未満）', c: 'some' }, { v: 'hand', t: 'した（手入力）', c: 'no' }],
     label: function (v) { return homeLabel(v); },
     apply: function (r, v) { r.home = v; },
     detail: function () { return ''; }
   }
 };
+/* ボタンの中の字が、はみ出さない大きさになるまで小さくする */
+function fitBtn(b) {
+  var fz = parseInt(b.style.fontSize, 10) || 20, guard = 0;
+  while (fz > 12 && (b.scrollWidth > b.clientWidth + 1 || b.scrollHeight > b.clientHeight + 1) && guard++ < 20) {
+    fz -= 2;
+    b.style.fontSize = fz + 'px';
+  }
+}
 function sizeAsk() {
   var ch = document.documentElement.clientHeight || 700, cw = document.documentElement.clientWidth || 1000;
   var bx = $('lunchBox'), q = $('lunchQ'), cd = $('lunchCd');
@@ -1155,20 +1165,25 @@ function sizeAsk() {
     for (i = 0; i < bs.length; i++) {
       var bw = bs[i].offsetWidth || 200;
       bs[i].style.height = (bs[i].className.indexOf('ok2') >= 0 ? Math.round(hh * 0.42) : hh) + 'px';
-      if (bs[i].className.indexOf('hr') >= 0) bs[i].style.fontSize = Math.max(16, Math.min(34, Math.floor(bw / 3.2), Math.floor(hh * 0.2))) + 'px';
-      else bs[i].style.fontSize = Math.max(18, Math.min(46, Math.floor(hh * 0.22), Math.floor(bw / 5.4))) + 'px';
+      if (bs[i].className.indexOf('hr') >= 0) bs[i].style.fontSize = Math.max(14, Math.min(34, Math.floor(bw / 3.2), Math.floor(hh * 0.2))) + 'px';
+      else bs[i].style.fontSize = Math.max(14, Math.min(46, Math.floor(hh * 0.22), Math.floor(bw / 5.4))) + 'px';
+      fitBtn(bs[i]);
     }
   }
   apply();
   if (q) {
     var fz = Math.max(48, Math.min(104, Math.floor(cw * 0.075)));
     q.style.fontSize = fz + 'px';
-    while (fz > 34 && q.scrollWidth > q.clientWidth) { fz -= 4; q.style.fontSize = fz + 'px'; }
+    q.style.whiteSpace = 'nowrap';
+    while (fz > 30 && q.scrollWidth > q.clientWidth) { fz -= 4; q.style.fontSize = fz + 'px'; }
+    if (q.scrollWidth > q.clientWidth) q.style.whiteSpace = 'normal';
   }
   if (cd) {
     var fc = Math.max(20, Math.min(44, Math.floor(cw * 0.032)));
     cd.style.fontSize = fc + 'px';
+    cd.style.whiteSpace = 'nowrap';
     while (fc > 16 && cd.scrollWidth > cd.clientWidth) { fc -= 2; cd.style.fontSize = fc + 'px'; }
+    if (cd.scrollWidth > cd.clientWidth) cd.style.whiteSpace = 'normal';
   }
   if (bx) {
     bx.style.marginTop = '0px';
@@ -1270,7 +1285,8 @@ function finishTask(auto) {
 function askTick() {
   if (!ASK || ASK.kind === 'task') return;
   var el = $('lunchCd'), a = ASKS[ASK.kind];
-  if (el) el.innerHTML = ASK.left > 0 ? '何も押さないと、あと ' + ASK.left + ' 秒で「' + esc(a.label(ASK.def || a.def)) + '」として記録します' : '記録します…';
+  var dv = ASK.def || a.def;
+  if (el) el.innerHTML = ASK.left > 0 ? '何も押さないと、あと ' + ASK.left + ' 秒で「' + esc(ASK.kind === 'home' ? homeLabel(dv) : a.label(dv)) + '」として記録します' : '記録します…';
   ASK.left--;
 }
 /* 「した（手入力）」を押したとき：2〜10時間のボタンに切りかえる */
@@ -1279,7 +1295,7 @@ function askHand() {
   if (ASK_T1) clearTimeout(ASK_T1);
   if (ASK_T2) clearInterval(ASK_T2);
   var sec = S.homeSec || 5;
-  ASK.hand = true; ASK.def = 'long'; ASK.left = sec;
+  ASK.hand = true; ASK.def = 'h1'; ASK.left = sec;
   $('lunchQ').innerHTML = '何時間<span class="qs">しましたか？</span><span class="lsub">（土日などの分も合わせて）</span>';
   var h = '<table class="lbtns hrs"><tr>';
   for (var k = HAND_MIN; k <= HAND_MAX; k++) h += '<td><button class="lb hr" data-act="ask" data-arg="h' + k + '"><span class="hn">' + k + '</span><span class="hu">時間</span></button></td>';
@@ -1691,7 +1707,7 @@ function openEdit(d, sid) {
     '<tr><td class="lb">持ち帰り仕事</td><td colspan="4"><select id="edHome" class="inp"><option value="">（記録なし）</option>' +
     homeHandOpts(r.home) +
     '<option value="long"' + (r.home === 'long' ? ' selected' : '') + '>した（1時間以上）</option>' +
-    '<option value="yes"' + (r.home === 'yes' ? ' selected' : '') + '>した</option>' +
+    '<option value="yes"' + (r.home === 'yes' ? ' selected' : '') + '>した（1時間未満）</option>' +
     '<option value="no"' + (r.home === 'no' ? ' selected' : '') + '>しなかった</option></select>　<span class="note">出勤の打刻のときに本人が答えた記録です</span></td></tr>' +
     taskEditRow('昼休憩の業務内容', 'edLtask', r.ltask) +
     taskEditRow('持ち帰りの業務内容', 'edHtask', r.htask) +
@@ -1972,7 +1988,7 @@ function ruleText() {
     '※時間外在校等時間＝勤務日は、勤務開始時刻より前と、勤務終了時刻より後に学校にいた時間の合計（学校の勤務時間 ' + fmtHM(S.workStart) + '〜' + fmtHM(S.workEnd) + '。職員ごとに決めている場合はその時間）。休日（土日・祝日・設定した休日）は在校等時間のすべて。',
     '※打刻漏れ（出勤または退勤の一方しかない日）は時間に含めていません。',
     '※［修正］は、あとから記録を直した日です（直した日時を表示しています）。元の打刻と直した内容はすべて記録に残しています。',
-    '※昼休憩の欄　「取れた」／「少し」＝少しは取れた／「なし」＝取れなかった。持ち帰り仕事の欄　「なし」＝しなかった／「あり」＝した／「1時間以上」＝した（1時間以上）／「5時間」など＝した（手入力）。',
+    '※昼休憩の欄　「取れた」／「少し」＝少しは取れた／「なし」＝取れなかった。持ち帰り仕事の欄　「なし」＝しなかった／「1時間未満」／「1時間」〜「10時間」＝手入力で答えた時間（古い記録の「1時間以上」も同じ扱いです）。',
     '※業務内容の欄　昼休憩が取れなかった日・持ち帰り仕事をした日に、本人が答えた仕事の種類です（いくつでも選べます）。',
     '※どちらも、出勤・退勤の打刻のときに本人が答えたものです（何も押さなかった日は「取れた」「なし」として記録しています）。'];
 }
@@ -3085,7 +3101,7 @@ start();
 (function () {
   try {
     /* 見本データの版。見本の中身を変えたら数字を上げる → 以前に開いた人のブラウザでも新しい見本に入れ替わる */
-    var SEEDVER = '2026-09-23h', VK = 'tcneo_seedver';
+    var SEEDVER = '2026-09-23k', VK = 'tcneo_seedver';
     var cur = null; try { cur = localStorage.getItem(VK); } catch (e0) { cur = SEEDVER; }
     if (cur !== SEEDVER) {
       var del = [], j;
@@ -3111,7 +3127,7 @@ start();
     /* 今日からさかのぼって75日分の記録（土日と祝日はとばす）＝先月1か月分がまるごと入る */
     function p2(n) { return (n < 10 ? '0' : '') + n; }
     function hsh(a, b) { var x = ((a + 7) * 73856093) ^ ((b + 13) * 19349663); x = x & 0x7fffffff; x = (x * 1103515245 + 12345) & 0x7fffffff; return x / 0x7fffffff; }
-    var LU = ['ok', 'some', 'no'], HO = ['no', 'yes', 'long'], months = {};
+    var LU = ['ok', 'some', 'no'], HO = ['no', 'yes', 'h1'], months = {};
     var now0 = new Date(), d0 = new Date(now0.getFullYear(), now0.getMonth(), now0.getDate());
     for (var k = 75; k >= 1; k--) {
       var dt = new Date(d0.getFullYear(), d0.getMonth(), d0.getDate() - k);
