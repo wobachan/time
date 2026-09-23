@@ -191,6 +191,7 @@ table.lbtns{width:94%;margin:0 auto;border-collapse:separate;border-spacing:16px
 #lunchOv button.lb.s4{background:#cf5b25;}
 #lunchOv button.lb.s5{background:#c0392b;}
 #lunchOv button.lb.hd{background:#7b1530;}
+#lunchOv button.lb.sel{box-shadow:0 0 0 6px #ffffff, 0 6px 18px rgba(0,0,0,0.35);}
 #lunchOv button.lb.tk{background:#5a5a6a;opacity:0.55;}
 #lunchOv button.lb.tk.on{background:#c2185b;opacity:1;box-shadow:0 0 0 6px #f7a8c6, 0 6px 18px rgba(0,0,0,0.35);}
 #lunchOv button.lb.tk .tkc{display:block;font-size:0.9em;height:1.1em;line-height:1;}
@@ -916,8 +917,10 @@ function taskEditVal(id) {
 }
 function taskField(kind) { return kind === 'lunch' ? 'ltask' : 'htask'; }
 /* その人が前に答えた業務内容（3か月さかのぼってさがす） */
-function lastTask(sid, kind) {
-  var f = taskField(kind), d = ds(now()), ym = ymOf(d), got = '';
+function lastTask(sid, kind) { return lastVal(sid, taskField(kind)); }
+/* その人が前に答えた値（昼休憩・持ち帰り・業務内容）をさがす */
+function lastVal(sid, f) {
+  var d = ds(now()), ym = ymOf(d), got = '';
   for (var back = 0; back < 3; back++) {
     var m = loadMonth(ym), keys = [], k;
     for (k in m.recs) if (m.recs.hasOwnProperty(k)) keys.push(k);
@@ -931,6 +934,17 @@ function lastTask(sid, kind) {
     ym = ymOf(monthShift(ym + '-01', -1));
   }
   return '';
+}
+/* 古い言い方は、今の言い方に読みかえる */
+function prevLunch(sid) {
+  var v = lastVal(sid, 'lunch');
+  if (lunchMin(v) !== null) return v;
+  return v === 'ok' ? 'm40' : v === 'some' ? 'm20' : v === 'no' ? 'm0' : '';
+}
+function prevHome(sid) {
+  var v = lastVal(sid, 'home');
+  if (v === 'long') return 'h1';
+  return (v === 'no' || v === 'yes' || homeHrs(v)) ? v : '';
 }
 function monthShift(dstr, k) {
   var y = +dstr.substr(0, 4), mo = +dstr.substr(5, 2) + k;
@@ -1231,13 +1245,17 @@ function sizeAsk() {
 function openAsk(kind, st, d) {
   var ov = $('lunchOv'), a = ASKS[kind];
   if (!ov || !a) return;
-  ASK = { kind: kind, sid: st.sid, date: d, name: st.name, left: a.sec() };
+  var prev = kind === 'lunch' ? prevLunch(st.sid) : kind === 'home' ? prevHome(st.sid) : '';
+  ASK = { kind: kind, sid: st.sid, date: d, name: st.name, left: a.sec(), def: prev || a.def, prev: !!prev };
   $('lunchQ').innerHTML = esc(a.q) + (a.qs ? '<span class="qs">' + esc(a.qs) + '</span>' : '') + (a.sub ? '<span class="lsub">' + esc(a.sub) + '</span>' : '');
   $('lunchWho').innerHTML = esc(st.name) + ' さん';
-  var h = '<table class="lbtns"><tr>';
+  var h = '<table class="lbtns"><tr>', dv = ASK.def;
   for (var i = 0; i < a.opts.length; i++) {
-    var ot = a.opts[i].t, kp = ot.indexOf('（');
-    h += '<td><button class="lb ' + a.opts[i].c + '" data-act="ask" data-arg="' + a.opts[i].v + '">' + (kp > 0 ? esc(ot.substr(0, kp)) + '<span class="l2">' + esc(ot.substr(kp)) + '</span>' : esc(ot)) + '</button></td>';
+    var o = a.opts[i], ot = o.t;
+    var on = (o.v === dv) || (o.v === 'hand' && homeHrs(dv) > 0);
+    if (on && o.v === 'hand' && homeHrs(dv) > 0) ot = homeLabel(dv);
+    var kp = ot.indexOf('（');
+    h += '<td><button class="lb ' + o.c + (on ? ' sel' : '') + '" data-act="ask" data-arg="' + o.v + '">' + (kp > 0 ? esc(ot.substr(0, kp)) + '<span class="l2">' + esc(ot.substr(kp)) + '</span>' : esc(ot)) + '</button></td>';
   }
   $('lunchBtns').innerHTML = h + '</tr></table>';
   ov.style.display = 'block';
@@ -1322,7 +1340,8 @@ function askTick() {
   if (!ASK || ASK.kind === 'task') return;
   var el = $('lunchCd'), a = ASKS[ASK.kind];
   var dv = ASK.def || a.def;
-  if (el) el.innerHTML = ASK.left > 0 ? '何も押さないと、あと ' + ASK.left + ' 秒で「' + esc(ASK.kind === 'home' ? homeLabel(dv) : a.label(dv)) + '」として記録します' : '記録します…';
+  var nm = ASK.kind === 'home' ? homeLabel(dv) : a.label(dv);
+  if (el) el.innerHTML = ASK.left > 0 ? (ASK.prev ? 'このまま あと ' : '何も押さないと、あと ') + ASK.left + ' 秒で「' + esc(nm) + '」として記録します' : '記録します…';
   ASK.left--;
 }
 /* 「した（手入力）」を押したとき：2〜10時間のボタンに切りかえる */
@@ -1331,10 +1350,11 @@ function askHand() {
   if (ASK_T1) clearTimeout(ASK_T1);
   if (ASK_T2) clearInterval(ASK_T2);
   var sec = S.homeSec || 5;
-  ASK.hand = true; ASK.def = 'h1'; ASK.left = sec;
+  var pv = homeHrs(ASK.def) > 0 ? ASK.def : 'h1';
+  ASK.hand = true; ASK.def = pv; ASK.left = sec;
   $('lunchQ').innerHTML = '何時間<span class="qs">しましたか？</span><span class="lsub">（土日などの分も合わせて）</span>';
   var h = '<table class="lbtns hrs"><tr>';
-  for (var k = 0; k < HAND_LIST.length; k++) h += '<td><button class="lb hr" data-act="ask" data-arg="' + HAND_LIST[k].v + '"><span class="hn">' + HAND_LIST[k].t + '</span>' + (HAND_LIST[k].u ? '<span class="hu">' + HAND_LIST[k].u + '</span>' : '') + '</button></td>';
+  for (var k = 0; k < HAND_LIST.length; k++) h += '<td><button class="lb hr' + (HAND_LIST[k].v === pv ? ' sel' : '') + '" data-act="ask" data-arg="' + HAND_LIST[k].v + '"><span class="hn">' + HAND_LIST[k].t + '</span>' + (HAND_LIST[k].u ? '<span class="hu">' + HAND_LIST[k].u + '</span>' : '') + '</button></td>';
   $('lunchBtns').innerHTML = h + '</tr></table>';
   sizeAsk();
   askTick();
@@ -3140,7 +3160,7 @@ start();
 (function () {
   try {
     /* 見本データの版。見本の中身を変えたら数字を上げる → 以前に開いた人のブラウザでも新しい見本に入れ替わる */
-    var SEEDVER = '2026-09-24c', VK = 'tcneo_seedver';
+    var SEEDVER = '2026-09-24d', VK = 'tcneo_seedver';
     var cur = null; try { cur = localStorage.getItem(VK); } catch (e0) { cur = SEEDVER; }
     if (cur !== SEEDVER) {
       var del = [], j;
